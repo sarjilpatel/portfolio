@@ -44,6 +44,19 @@ body {
   background-image: url("./app/assets/bg-texture.png");
 }
 
+.loader:empty{
+  position: absolute;
+  width: 16em;
+  max-height: 16em;
+  top: calc(50% - 8em);
+  left: calc(50% - 8em);
+  background-image: url("./app/assets/loading.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  z-index: 2;
+}
+
 /*********************General style****************/
 .container {
   width: var(--container-width-lg);
