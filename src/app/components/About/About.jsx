@@ -2,13 +2,12 @@ import { useContext } from "react";
 import { FaAward } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
 import { VscFolderLibrary } from "react-icons/vsc";
-import ME from "../../assets/me-about.jpg";
 import "./about.css";
 import { SiteContext } from "../../utils/SiteContext";
 
 function About() {
   const {
-    data: { experience = 0, clients = 0, projects = 0, about_us = "" },
+    data: { experience = 0, clients = 0, projects = 0, about_us = "", profile_2 },
   } = useContext(SiteContext);
 
   return (
@@ -18,7 +17,7 @@ function About() {
       <div className="container about__container">
         <div className="about__me">
           <div className="about__me-image">
-            <img src={ME} alt="" />
+            <img src={profile_2} alt="" />
           </div>
         </div>
         <div className="about__content">
