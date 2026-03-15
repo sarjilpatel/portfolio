@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "title": "React Launch",
+    "description": "A zero-config React deployment platform inspired by Vercel.",
+    "tech": ["Next.js", "Node.js", "AWS ECS", "AWS ECR", "AWS S3", "Prisma", "PostgreSQL", "Redis", "Clerk"],
+    "github": "https://github.com",
+    "demo": "https://demo.com",
+    "image": "/projects/react-launch.png"
+  },
+  {
+    "id": "2",
+    "title": "TixStock",
+    "description": "A global event ticketing and payment platform supporting partner onboarding, ticket sales and multi-currency payouts.",
+    "tech": ["React.js", "TypeScript", "AWS S3", "Context API"],
+    "github": "https://github.com",
+    "demo": "https://demo.com",
+    "image": "/projects/tixstock.png"
+  },
+  {
+    "id": "3",
+    "title": "ZealOverview",
+    "description": "An internal productivity dashboard for managing tasks and team operations.",
+    "tech": ["React.js", "Node.js", "TypeScript", "Sequelize", "MySQL"],
+    "github": "https://github.com",
+    "demo": "https://demo.com",
+    "image": "/projects/zealoverview.png"
+  }
+]

@@ -1,0 +1,25 @@
+[
+  {
+    "id": "1",
+    "company": "ZealousWeb Technologies Pvt Ltd",
+    "role": "Associate Full Stack Developer",
+    "period": "Jan 2024 – Present",
+    "achievements": [
+      "Built 30+ scalable React components",
+      "Developed 40+ REST APIs",
+      "Resolved 500+ production issues",
+      "Improved UI performance by 30%"
+    ]
+  },
+  {
+    "id": "2",
+    "company": "Freelance React Developer",
+    "role": "Freelance React Developer",
+    "period": "Aug 2023 – Nov 2023",
+    "achievements": [
+      "Delivered 2 full React apps",
+      "Built reusable component architecture",
+      "Handled complete client lifecycle"
+    ]
+  }
+]
