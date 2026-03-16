@@ -1,12 +1,12 @@
 "use client"
 
 import { motion } from "framer-motion"
-import experienceData from "@/data/experience.json"
+import { Experience as ExperienceType } from "@/lib/types"
 import SectionHeading from "@/components/SectionHeading"
 import { Briefcase, ChevronRight, Clock } from "lucide-react"
 import { DateTime } from "luxon"
 
-export default function Experience() {
+export default function Experience({ experienceData }: { experienceData: ExperienceType[] }) {
   const parseDate = (dateStr: string) => {
     if (dateStr.toLowerCase().includes("present")) {
       return DateTime.now()

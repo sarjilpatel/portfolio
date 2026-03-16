@@ -2,10 +2,10 @@
 
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
 import { Github, ExternalLink } from "lucide-react"
-import projectsData from "@/data/projects.json"
+import { Project } from "@/lib/types"
 import SectionHeading from "@/components/SectionHeading"
 
-function ProjectCard({ project, index }: { project: any, index: number }) {
+function ProjectCard({ project, index }: { project: Project, index: number }) {
   const x = useMotionValue(0)
   const y = useMotionValue(0)
 
@@ -101,7 +101,7 @@ function ProjectCard({ project, index }: { project: any, index: number }) {
   )
 }
 
-export default function Projects() {
+export default function Projects({ projectsData }: { projectsData: Project[] }) {
   return (
     <section id="projects" className="py-24 px-6 bg-black relative perspective-1000">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[600px] bg-blue-600/5 blur-[150px] rounded-full -z-10" />

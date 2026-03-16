@@ -4,9 +4,9 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Send, Mail, MapPin } from "lucide-react"
 import SectionHeading from "@/components/SectionHeading"
-import profileData from "@/data/profile.json"
+import { Profile } from "@/lib/types"
 
-export default function Contact() {
+export default function Contact({ profileData }: { profileData: Profile }) {
   const [submitted, setSubmitted] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {

@@ -47,3 +47,12 @@ export interface Education {
   status: string
   period: string
 }
+
+export interface PortfolioData {
+  profile: Profile
+  projects: Project[]
+  skills: SkillCategory[]
+  experience: Experience[]
+  education: Education[]
+  certifications: Certification[]
+}

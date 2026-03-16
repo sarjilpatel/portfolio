@@ -4,10 +4,10 @@ import { motion } from "framer-motion"
 import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react"
 import Link from "next/link"
 import Terminal from "@/components/Terminal"
-import profileData from "@/data/profile.json"
+import { Profile } from "@/lib/types"
 import TypingEffect from "@/components/TypingEffect"
 
-export default function Hero() {
+export default function Hero({ profileData }: { profileData: Profile }) {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 px-6 overflow-hidden bg-black">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

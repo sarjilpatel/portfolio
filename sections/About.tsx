@@ -1,12 +1,11 @@
 "use client"
 
 import { motion } from "framer-motion"
-import profileData from "@/data/profile.json"
-import experienceData from "@/data/experience.json"
+import { Profile, Experience } from "@/lib/types"
 import SectionHeading from "@/components/SectionHeading"
 import { DateTime } from "luxon"
 
-export default function About() {
+export default function About({ profileData, experienceData }: { profileData: Profile, experienceData: Experience[] }) {
   const parseDate = (dateStr: string) => {
     if (dateStr.toLowerCase().includes("present")) return DateTime.now()
     return DateTime.fromFormat(dateStr.trim(), "MMM yyyy")

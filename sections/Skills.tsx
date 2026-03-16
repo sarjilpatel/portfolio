@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import skillsData from "@/data/skills.json"
+import { SkillCategory } from "@/lib/types"
 import SectionHeading from "@/components/SectionHeading"
 import { Code2, Database, Layout, Settings, Cpu, Smartphone, Globe, Cloud } from "lucide-react"
 
@@ -16,7 +16,7 @@ const icons: Record<string, any> = {
   "Backend": Cpu
 }
 
-export default function Skills() {
+export default function Skills({ skillsData }: { skillsData: SkillCategory[] }) {
   return (
     <section id="skills" className="py-24 px-6 bg-zinc-950 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">

@@ -1,11 +1,11 @@
 "use client"
 
 import { motion } from "framer-motion"
-import certificationsData from "@/data/certifications.json"
+import { Certification } from "@/lib/types"
 import SectionHeading from "@/components/SectionHeading"
 import { Award, ExternalLink, Calendar, CheckCircle2 } from "lucide-react"
 
-export default function Certifications() {
+export default function Certifications({ certificationsData }: { certificationsData: Certification[] }) {
   return (
     <section id="certifications" className="py-24 px-6 bg-zinc-950 relative overflow-hidden">
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/5 blur-[100px] rounded-full -z-10" />

@@ -1,11 +1,11 @@
 "use client"
 
 import { motion } from "framer-motion"
-import educationData from "@/data/education.json"
+import { Education as EducationType } from "@/lib/types"
 import SectionHeading from "@/components/SectionHeading"
 import { GraduationCap, Calendar } from "lucide-react"
 
-export default function Education() {
+export default function Education({ educationData }: { educationData: EducationType[] }) {
   return (
     <section id="education" className="py-24 px-6 bg-black relative overflow-hidden perspective-1000">
       <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/5 blur-[100px] rounded-full -z-10" />
