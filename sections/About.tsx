@@ -18,28 +18,29 @@ export default function About({ profileData, experienceData }: { profileData: Pr
     const end = parseDate(endPart)
     totalMonths += end.diff(start, "months").months
   })
-  
+
   const totalYears = Math.floor(totalMonths / 12)
   const remainingMonths = Math.round(totalMonths % 12)
-  
+
   let totalExpStr = ""
   if (totalYears > 0) totalExpStr += `${totalYears} yr${totalYears > 1 ? "s" : ""} `
   if (remainingMonths > 0) totalExpStr += `${remainingMonths} mo${remainingMonths > 1 ? "s" : ""}`
 
   return (
-    <section id="about" className="py-24 px-6 relative overflow-hidden bg-black text-white">
+    <section id="about" className="py-24 px-6 relative overflow-hidden text-white">
       <div className="max-w-7xl mx-auto">
-        <SectionHeading 
-          title="About Me" 
-          subtitle="Passionate developer building modern web solutions" 
+        <SectionHeading
+          title="About Me"
+          subtitle="Passionate developer building modern web solutions"
         />
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mt-12">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.5 }}
+            style={{ willChange: "transform, opacity" }}
             className="relative"
           >
             <div className="aspect-square max-w-md mx-auto relative group">
@@ -53,7 +54,7 @@ export default function About({ profileData, experienceData }: { profileData: Pr
                 </div>
               </div>
             </div>
-            
+
             <div className="absolute -right-4 top-10 glass px-6 py-4 rounded-2xl shadow-xl z-20 border-white/5">
               <p className="text-2xl font-bold text-blue-400">{totalYears}+</p>
               <p className="text-xs text-slate-400 uppercase tracking-widest font-mono">Years Experience</p>
@@ -64,13 +65,14 @@ export default function About({ profileData, experienceData }: { profileData: Pr
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            style={{ willChange: "transform, opacity" }}
             className="flex flex-col space-y-6"
           >
             <p className="text-xl text-slate-300 leading-relaxed font-sans">
               {profileData.bio}
             </p>
-            
+
             <div className="grid grid-cols-2 gap-8 pt-4">
               {[
                 { label: "Location", value: "Gujarat, India" },

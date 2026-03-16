@@ -7,7 +7,7 @@ import { Award, ExternalLink, Calendar, CheckCircle2 } from "lucide-react"
 
 export default function Certifications({ certificationsData }: { certificationsData: Certification[] }) {
   return (
-    <section id="certifications" className="py-24 px-6 bg-zinc-950 relative overflow-hidden">
+    <section id="certifications" className="py-24 px-6 relative overflow-hidden">
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-500/5 blur-[100px] rounded-full -z-10" />
       
       <div className="max-w-7xl mx-auto">
@@ -23,7 +23,8 @@ export default function Certifications({ certificationsData }: { certificationsD
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              transition={{ duration: 0.4, delay: idx * 0.05 }}
+              style={{ willChange: "transform, opacity" }}
               whileHover={{ 
                 scale: 1.02,
                 transition: { duration: 0.2 }
@@ -34,22 +35,20 @@ export default function Certifications({ certificationsData }: { certificationsD
               <div className="absolute top-0 right-0 w-16 h-16 bg-blue-500/5 blur-xl group-hover:bg-blue-500/20 transition-all duration-500" />
               
               <div className="flex items-start justify-between mb-6">
-                <motion.div 
-                  whileHover={{ scale: 1.2, rotate: 5 }}
+                <div 
                   className="p-3 bg-blue-500/10 rounded-xl text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300"
                 >
                   <Award size={24} />
-                </motion.div>
+                </div>
                 {cert.link && (
-                  <motion.a 
-                    whileHover={{ scale: 1.2, color: "#fff" }}
+                  <a 
                     href={cert.link} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-slate-500 transition-colors"
+                    className="text-slate-500 hover:text-white transition-colors"
                   >
                     <ExternalLink size={18} />
-                  </motion.a>
+                  </a>
                 )}
               </div>
               
@@ -65,13 +64,12 @@ export default function Certifications({ certificationsData }: { certificationsD
                   <Calendar size={12} className="text-blue-500" />
                   <span>{cert.date}</span>
                 </div>
-                <motion.div 
-                  whileHover={{ x: 3 }}
-                  className="flex items-center gap-1.5 text-xs font-mono text-green-500/80"
+                <div 
+                  className="flex items-center gap-1.5 text-xs font-mono text-green-500/80 group-hover:text-green-400 transition-colors"
                 >
                   <CheckCircle2 size={12} />
                   <span>Verified</span>
-                </motion.div>
+                </div>
               </div>
             </motion.div>
           ))}

@@ -18,7 +18,7 @@ const icons: Record<string, any> = {
 
 export default function Skills({ skillsData }: { skillsData: SkillCategory[] }) {
   return (
-    <section id="skills" className="py-24 px-6 bg-zinc-950 relative overflow-hidden">
+    <section id="skills" className="py-24 px-6 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <SectionHeading 
           title="Skills & Tech" 
@@ -34,9 +34,10 @@ export default function Skills({ skillsData }: { skillsData: SkillCategory[] }) 
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                style={{ willChange: "transform, opacity" }}
                 whileHover={{ 
-                  y: -10,
+                  y: -5,
                   transition: { duration: 0.2 }
                 }}
                 className="glass-card group h-full flex flex-col relative overflow-hidden border-white/5 cursor-default transition-all duration-300"
@@ -57,18 +58,12 @@ export default function Skills({ skillsData }: { skillsData: SkillCategory[] }) 
                   
                   <div className="flex flex-wrap gap-2 mt-auto">
                     {category.skills.map((skill) => (
-                      <motion.span 
+                      <span 
                         key={skill}
-                        whileHover={{ 
-                          scale: 1.05,
-                          backgroundColor: "rgba(59, 130, 246, 0.2)",
-                          borderColor: "rgba(59, 130, 246, 0.5)",
-                          color: "#fff"
-                        }}
-                        className="px-3 py-1.5 text-xs font-mono rounded-xl bg-white/5 border border-white/10 text-slate-400 transition-all"
+                        className="px-3 py-1.5 text-xs font-mono rounded-xl bg-white/5 border border-white/10 text-slate-400 transition-all duration-300 hover:scale-110 hover:bg-blue-500/20 hover:border-blue-500/50 hover:text-white cursor-default"
                       >
                         {skill}
-                      </motion.span>
+                      </span>
                     ))}
                   </div>
                 </div>

@@ -9,12 +9,13 @@ import TypingEffect from "@/components/TypingEffect"
 
 export default function Hero({ profileData }: { profileData: Profile }) {
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 px-6 overflow-hidden bg-black">
+    <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          style={{ willChange: "transform, opacity" }}
           className="flex flex-col space-y-6"
         >
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono w-fit">
@@ -63,7 +64,8 @@ export default function Hero({ profileData }: { profileData: Profile }) {
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+          style={{ willChange: "transform, opacity" }}
           className="hidden lg:block perspective-1000"
         >
           <Terminal />

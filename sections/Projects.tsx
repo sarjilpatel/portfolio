@@ -1,57 +1,29 @@
 "use client"
 
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
+import { motion } from "framer-motion"
 import { Github, ExternalLink } from "lucide-react"
 import { Project } from "@/lib/types"
 import SectionHeading from "@/components/SectionHeading"
 
 function ProjectCard({ project, index }: { project: Project, index: number }) {
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
-
-  const mouseXSpring = useSpring(x)
-  const mouseYSpring = useSpring(y)
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"])
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"])
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    const width = rect.width
-    const height = rect.height
-    const mouseX = e.clientX - rect.left
-    const mouseY = e.clientY - rect.top
-    const xPct = mouseX / width - 0.5
-    const yPct = mouseY / height - 0.5
-    x.set(xPct)
-    y.set(yPct)
-  }
-
-  const handleMouseLeave = () => {
-    x.set(0)
-    y.set(0)
-  }
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
+      transition={{ duration: 0.4, delay: index * 0.05 }}
+      whileHover={{ 
+        y: -10,
+        scale: 1.02,
+        transition: { duration: 0.2, ease: "easeOut" }
       }}
+      style={{ willChange: "transform, opacity" }}
       className="glass-card flex flex-col group h-full relative overflow-hidden transition-all duration-500 hover:border-blue-500/30"
     >
       {/* Vibrant Background Hover */}
       <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 via-transparent to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
       <div 
-        style={{ transform: "translateZ(50px)" }}
         className="aspect-video relative overflow-hidden rounded-xl mb-6 bg-zinc-950 border border-white/5"
       >
         <div className="absolute inset-0 bg-linear-to-br from-blue-600/20 to-purple-600/20 opacity-50 group-hover:opacity-100 transition-opacity" />
@@ -81,7 +53,7 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
         </div>
       </div>
       
-      <div style={{ transform: "translateZ(30px)" }} className="flex flex-col flex-grow relative z-10">
+      <div className="flex flex-col flex-grow relative z-10">
         <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-blue-400 transition-colors tracking-tight">
           {project.title}
         </h3>
@@ -103,7 +75,7 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
 
 export default function Projects({ projectsData }: { projectsData: Project[] }) {
   return (
-    <section id="projects" className="py-24 px-6 bg-black relative perspective-1000">
+    <section id="projects" className="py-24 px-6 relative">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[600px] bg-blue-600/5 blur-[150px] rounded-full -z-10" />
 
       <div className="max-w-7xl mx-auto">

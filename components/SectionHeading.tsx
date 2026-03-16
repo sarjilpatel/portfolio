@@ -14,7 +14,8 @@ export default function SectionHeading({ title, subtitle }: SectionHeadingProps)
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        style={{ willChange: "transform, opacity" }}
         className="inline-block"
       >
         <span className="text-sm font-mono text-blue-500 uppercase tracking-[0.3em] mb-4 block opacity-80">
@@ -27,7 +28,7 @@ export default function SectionHeading({ title, subtitle }: SectionHeadingProps)
           initial={{ width: 0 }}
           whileInView={{ width: 80 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           className="h-1.5 bg-linear-to-r from-blue-600 to-purple-600 mx-auto mt-6 rounded-full shadow-[0_0_15px_rgba(59,130,246,0.3)]" 
         />
       </motion.div>
@@ -37,7 +38,7 @@ export default function SectionHeading({ title, subtitle }: SectionHeadingProps)
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
           className="text-slate-400 text-lg max-w-2xl leading-relaxed"
         >
           {subtitle}

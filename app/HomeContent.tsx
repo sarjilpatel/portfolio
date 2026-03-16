@@ -14,8 +14,8 @@ import { PortfolioData } from "@/lib/types"
 export default function HomeContent({ data }: { data: PortfolioData }) {
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 200,
+    damping: 40,
     restDelta: 0.001
   })
 

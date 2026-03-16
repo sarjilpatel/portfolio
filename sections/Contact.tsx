@@ -16,7 +16,7 @@ export default function Contact({ profileData }: { profileData: Profile }) {
   }
 
   return (
-    <section id="contact" className="py-24 px-6 bg-zinc-950">
+    <section id="contact" className="py-24 px-6 relative">
       <div className="max-w-7xl mx-auto">
         <SectionHeading 
           title="Get In Touch" 
@@ -27,7 +27,8 @@ export default function Contact({ profileData }: { profileData: Profile }) {
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            style={{ willChange: "transform, opacity" }}
             className="flex flex-col space-y-12"
           >
             <h3 className="text-3xl font-bold text-white">Contact Info</h3>
@@ -57,6 +58,8 @@ export default function Contact({ profileData }: { profileData: Profile }) {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            style={{ willChange: "transform, opacity" }}
             className="glass-card !p-8"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
