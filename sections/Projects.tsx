@@ -11,34 +11,34 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
+      transition={{ duration: 0.2, delay: index * 0.05 }}
       whileHover={{ 
         y: -10,
         scale: 1.02,
-        transition: { duration: 0.2, ease: "easeOut" }
+        transition: { duration: 0.1, ease: "easeOut" }
       }}
       style={{ willChange: "transform, opacity" }}
-      className="glass-card flex flex-col group h-full relative overflow-hidden transition-all duration-500 hover:border-blue-500/30"
+      className="glass-card flex flex-col group h-full relative overflow-hidden transition-all duration-200 hover:border-blue-500/30"
     >
       {/* Vibrant Background Hover */}
-      <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 via-transparent to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 via-transparent to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       
       <div 
         className="aspect-video relative overflow-hidden rounded-xl mb-6 bg-zinc-950 border border-white/5"
       >
         <div className="absolute inset-0 bg-linear-to-br from-blue-600/20 to-purple-600/20 opacity-50 group-hover:opacity-100 transition-opacity" />
         <div className="flex items-center justify-center h-full">
-          <span className="text-3xl font-bold text-white/5 group-hover:text-blue-400 transition-all duration-700">
+          <span className="text-3xl font-bold text-white/5 group-hover:text-blue-400 transition-all duration-300">
             {project.title}
           </span>
         </div>
         
-        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-4">
            <a 
             href={project.github} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="p-3 bg-white/10 hover:bg-white/20 rounded-full text-white backdrop-blur-md transition-all duration-300"
+            className="p-3 bg-white/10 hover:bg-white/20 rounded-full text-white backdrop-blur-md transition-all duration-200"
           >
             <Github size={22} />
           </a>

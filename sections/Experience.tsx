@@ -75,7 +75,7 @@ export default function Experience({ experienceData }: { experienceData: Experie
               <div key={exp.id} className="relative flex flex-col md:flex-row items-center group">
                 {/* Timeline Dot */}
                 <div className="absolute left-4 md:left-1/2 w-12 h-12 -translate-x-1/2 flex items-center justify-center z-10 hidden sm:flex">
-                  <div className="w-3 h-3 bg-black border-2 border-blue-500 rounded-full ring-4 ring-blue-500/10 group-hover:scale-150 transition-transform duration-300" />
+                  <div className="w-3 h-3 bg-black border-2 border-blue-500 rounded-full ring-4 ring-blue-500/10 group-hover:scale-150 transition-transform" />
                 </div>
 
                 {/* Left Side (Period) */}
@@ -104,9 +104,9 @@ export default function Experience({ experienceData }: { experienceData: Experie
                   style={{ willChange: "transform, opacity" }}
                   className={`flex-1 w-full pl-12 sm:pl-0 md:w-auto ${index % 2 === 0 ? "md:pl-20" : "md:pr-20 md:text-right"}`}
                 >
-                  <div className="glass-card !p-0 overflow-hidden relative border-white/5 transition-all duration-300 hover:border-blue-500/40 hover:shadow-[0_0_40px_rgba(59,130,246,0.15)] group-hover:-translate-y-2">
+                  <div className="glass-card p-0! overflow-hidden relative border-white/5 transition-all hover:border-blue-500/40 hover:shadow-[0_0_40px_rgba(59,130,246,0.15)] group-hover:-translate-y-2">
                     {/* Vibrant Gradient on Hover */}
-                    <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 via-transparent to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 via-transparent to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                     
                     <div className="p-8 relative z-10">
                       <div className="mb-6">

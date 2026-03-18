@@ -40,16 +40,16 @@ export default function Skills({ skillsData }: { skillsData: SkillCategory[] }) 
                   y: -5,
                   transition: { duration: 0.2 }
                 }}
-                className="glass-card group h-full flex flex-col relative overflow-hidden border-white/5 cursor-default transition-all duration-300"
+                className="glass-card group h-full flex flex-col relative overflow-hidden border-white/5 cursor-default transition-all"
               >
                 {/* Dynamic Gradient Background on Hover */}
-                <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 via-purple-600/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 via-purple-600/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-250" />
                 
                 <div className="relative z-10">
                   <div className="flex items-center space-x-4 mb-6">
                     <motion.div 
                       whileHover={{ rotate: 15, scale: 1.1 }}
-                      className="p-4 rounded-2xl bg-blue-500/10 text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300 shadow-[0_0_15px_rgba(59,130,246,0.2)]"
+                      className="p-4 rounded-2xl bg-blue-500/10 text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all duration-200 shadow-[0_0_15px_rgba(59,130,246,0.2)]"
                     >
                       <Icon size={24} />
                     </motion.div>
@@ -60,7 +60,7 @@ export default function Skills({ skillsData }: { skillsData: SkillCategory[] }) 
                     {category.skills.map((skill) => (
                       <span 
                         key={skill}
-                        className="px-3 py-1.5 text-xs font-mono rounded-xl bg-white/5 border border-white/10 text-slate-400 transition-all duration-300 hover:scale-110 hover:bg-blue-500/20 hover:border-blue-500/50 hover:text-white cursor-default"
+                        className="px-3 py-1.5 text-xs font-mono rounded-xl bg-white/5 border border-white/10 text-slate-400 transition-all duration-200 hover:scale-110 hover:bg-blue-500/20 hover:border-blue-500/50 hover:text-white cursor-default"
                       >
                         {skill}
                       </span>
