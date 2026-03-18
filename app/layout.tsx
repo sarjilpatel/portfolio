@@ -6,6 +6,7 @@ import CursorGlow from "@/components/CursorGlow"
 import AnimatedBackground from "@/components/AnimatedBackground"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import LiquidGlassFilter from "@/components/LiquidGlassFilter"
 
 const inter = Inter({
   variable: "--font-sans",
@@ -38,7 +39,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AnimatedBackground />
-          <CursorGlow />
+          {/* <CursorGlow /> */}
+          <LiquidGlassFilter />
           <Navbar />
           {children}
           <Footer />

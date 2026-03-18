@@ -22,20 +22,31 @@ export default function AnimatedBackground() {
 
   return (
     <div className="fixed inset-0 -z-20 h-full w-full bg-black">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(17,24,39,1),rgba(0,0,0,1))]" />
-      
+      {/* Premium Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center brightness-[0.7] contrast-[1.1] "
+        style={{ backgroundImage: 'url("/glass-bg.png")', backgroundAttachment: 'fixed' }}
+      />
+
+      {/* Gradient Overlay for better contrast */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(0,0,0,0)_0%,rgba(0,0,0,0.8)_100%)]" />
+      <div className="absolute inset-0 bg-black/40" />
+
+      {/* Subtle Noise Grain for texture */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")' }} />
+
       {/* Optimized floating particles */}
       {particles.map((p, i) => (
         <motion.div
           key={i}
-          className="absolute h-1 w-1 rounded-full bg-blue-500/10"
+          className="absolute h-[2px] w-[2px] rounded-full bg-blue-400/20"
           initial={{ left: p.x, top: p.y, opacity: 0 }}
           animate={{
-            y: [0, -40, 0],
-            opacity: [0, 0.4, 0],
+            y: [0, -100, 0],
+            opacity: [0, 0.6, 0],
           }}
           transition={{
-            duration: p.duration,
+            duration: p.duration * 2,
             repeat: Infinity,
             ease: "easeInOut",
             delay: p.delay,
@@ -45,19 +56,23 @@ export default function AnimatedBackground() {
       ))}
 
       {/* Large subtle glow blobs - optimized */}
-      <motion.div 
+      <motion.div
         animate={{
-          opacity: [0.05, 0.1, 0.05],
+          x: [0, 30, 0],
+          y: [0, 20, 0],
+          opacity: [0.1, 0.15, 0.1],
         }}
-        transition={{ duration: 10, repeat: Infinity }}
-        className="absolute top-[-10%] left-[-10%] h-[40%] w-[40%] rounded-full bg-blue-600/5 blur-[80px] pointer-events-none"
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[-10%] left-[10%] h-[600px] w-[600px] rounded-full bg-blue-500/10 blur-[120px] pointer-events-none"
       />
-      <motion.div 
+      <motion.div
         animate={{
-          opacity: [0.05, 0.08, 0.05],
+          x: [0, -40, 0],
+          y: [0, 30, 0],
+          opacity: [0.08, 0.12, 0.08],
         }}
-        transition={{ duration: 15, repeat: Infinity, delay: 2 }}
-        className="absolute bottom-[-10%] right-[-10%] h-[50%] w-[50%] rounded-full bg-purple-600/5 blur-[80px] pointer-events-none"
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        className="absolute bottom-[10%] right-[10%] h-[700px] w-[700px] rounded-full bg-purple-500/10 blur-[120px] pointer-events-none"
       />
     </div>
   )
