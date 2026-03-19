@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react"
 import Link from "next/link"
-import Terminal from "@/components/Terminal"
+import HeroVisual from "@/components/HeroVisual"
 import { Profile } from "@/lib/types"
 import TypingEffect from "@/components/TypingEffect"
 
@@ -12,8 +12,8 @@ export default function Hero({ profileData }: { profileData: Profile }) {
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           style={{ willChange: "transform, opacity" }}
           className="flex flex-col space-y-6"
@@ -41,14 +41,23 @@ export default function Hero({ profileData }: { profileData: Profile }) {
           <div className="flex flex-wrap gap-4 pt-4">
             <Link 
               href="#projects" 
-              className="px-8 py-3 rounded-full bg-white text-black font-semibold flex items-center gap-2 hover:bg-slate-200 transition-all group"
+              className="px-8 py-3 rounded-full bg-white  font-semibold flex items-center gap-2 hover:bg-slate-200 transition-all group btn-glass-premium"
             >
               View Projects
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
+            <a 
+              href={profileData.resume} 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-glass-premium"
+            >
+              <Download size={18} />
+              Resume
+            </a>
             <Link 
               href="#contact" 
-              className="px-8 py-3 rounded-full glass border border-white/10 font-semibold flex items-center gap-2 hover:bg-white/10 transition-all text-white"
+              className="px-8 py-3 rounded-full btn-glass-premium border border-white/10 font-semibold flex items-center gap-2 hover:bg-white/10 transition-all text-white"
             >
               Contact Me
             </Link>
@@ -62,13 +71,13 @@ export default function Hero({ profileData }: { profileData: Profile }) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
           style={{ willChange: "transform, opacity" }}
-          className="hidden lg:block perspective-1000"
+          className="hidden lg:block"
         >
-          <Terminal />
+          <HeroVisual />
         </motion.div>
       </div>
     </section>

@@ -6,7 +6,6 @@ import CursorGlow from "@/components/CursorGlow"
 import AnimatedBackground from "@/components/AnimatedBackground"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
-import LiquidGlassFilter from "@/components/LiquidGlassFilter"
 
 const inter = Inter({
   variable: "--font-sans",
@@ -31,7 +30,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-black text-white selection:bg-white/10 overflow-x-hidden`}>
+      <body 
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-black text-white selection:bg-white/10 overflow-x-hidden`}
+        suppressHydrationWarning
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -40,7 +42,6 @@ export default function RootLayout({
         >
           <AnimatedBackground />
           {/* <CursorGlow /> */}
-          <LiquidGlassFilter />
           <Navbar />
           {children}
           <Footer />

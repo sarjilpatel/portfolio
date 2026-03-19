@@ -9,7 +9,7 @@ export default function AnimatedBackground() {
 
   useEffect(() => {
     setMounted(true)
-    const newParticles = [...Array(10)].map(() => ({
+    const newParticles = [...Array(5)].map(() => ({
       x: Math.random() * 100 + "%",
       y: Math.random() * 100 + "%",
       delay: Math.random() * 5,
@@ -25,7 +25,7 @@ export default function AnimatedBackground() {
       {/* Premium Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center brightness-[0.7] contrast-[1.1] "
-        style={{ backgroundImage: 'url("/glass-bg.png")', backgroundAttachment: 'fixed' }}
+        style={{ backgroundImage: 'url("/glass-bg.png")' }}
       />
 
       {/* Gradient Overlay for better contrast */}
@@ -63,7 +63,7 @@ export default function AnimatedBackground() {
           opacity: [0.1, 0.15, 0.1],
         }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-10%] left-[10%] h-[600px] w-[600px] rounded-full bg-blue-500/10 blur-[120px] pointer-events-none"
+        className="absolute top-[-10%] left-[10%] h-[600px] w-[600px] rounded-full bg-blue-500/10 blur-[80px] pointer-events-none"
       />
       <motion.div
         animate={{
@@ -72,7 +72,7 @@ export default function AnimatedBackground() {
           opacity: [0.08, 0.12, 0.08],
         }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute bottom-[10%] right-[10%] h-[700px] w-[700px] rounded-full bg-purple-500/10 blur-[120px] pointer-events-none"
+        className="absolute bottom-[10%] right-[10%] h-[700px] w-[700px] rounded-full bg-purple-500/10 blur-[80px] pointer-events-none"
       />
     </div>
   )

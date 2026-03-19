@@ -140,6 +140,15 @@ export default function AdminContent({ initialData }: { initialData: PortfolioDa
                       className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none"
                     />
                   </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-muted-foreground">Resume URL</label>
+                    <input 
+                      type="text" 
+                      value={profile.resume}
+                      onChange={(e) => setProfile({...profile, resume: e.target.value})}
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none"
+                    />
+                  </div>
                   <div className="md:col-span-2 space-y-2">
                     <label className="text-sm font-medium text-muted-foreground">Biography</label>
                     <textarea 
