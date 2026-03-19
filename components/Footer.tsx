@@ -2,8 +2,13 @@
 
 import Link from "next/link"
 import { Github, Linkedin, Mail, Heart } from "lucide-react"
+import { usePathname } from "next/navigation"
 
 export default function Footer() {
+  const pathname = usePathname()
+  const isSecretAdmin = pathname?.startsWith('/secret-admin')
+
+  if (isSecretAdmin) return null
   return (
     <footer className="py-12 px-6 border-t border-white/10 relative overflow-hidden bg-black">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">

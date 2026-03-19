@@ -6,6 +6,7 @@ import CursorGlow from "@/components/CursorGlow"
 import AnimatedBackground from "@/components/AnimatedBackground"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import { cn } from "@/lib/utils";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -29,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={cn("font-sans", inter.variable)}>
       <body 
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-black text-white selection:bg-white/10 overflow-x-hidden`}
         suppressHydrationWarning
