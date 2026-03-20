@@ -109,10 +109,10 @@ export function ProjectsForm({ projects, setProjects }: ProjectsFormProps) {
                           </div>
                           <Input
                             placeholder="https://..."
-                            value={proj.link}
+                            value={proj.demo}
                             onChange={(e) => {
                               const newProjs = [...projects]
-                              newProjs[idx].link = e.target.value
+                              newProjs[idx].demo = e.target.value
                               setProjects(newProjs)
                             }}
                             className="bg-black/40 border-white/5 pl-10 h-11 rounded-xl text-xs font-medium"

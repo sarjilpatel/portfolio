@@ -24,16 +24,16 @@ import {
 } from "lucide-react"
 
 export function AppSidebar({ 
-  items, 
-  activeTab, 
-  onTabChange,
-  onLogout,
+  items = [], 
+  activeTab = "", 
+  onTabChange = () => {},
+  onLogout = () => {},
   ...props 
 }: { 
-  items: any[], 
-  activeTab: string, 
-  onTabChange: (id: string) => void,
-  onLogout: () => void
+  items?: any[], 
+  activeTab?: string, 
+  onTabChange?: (id: string) => void,
+  onLogout?: () => void
 } & React.ComponentProps<typeof Sidebar>) {
   
   const user = {

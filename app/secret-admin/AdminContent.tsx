@@ -104,7 +104,7 @@ export default function AdminContent({ initialData }: { initialData: PortfolioDa
   const handleAddInstance = () => {
     switch (activeTab) {
       case "projects":
-        setProjects([{ id: Date.now().toString(), title: "New Project", description: "Stage your project description here...", tech: ["React"], link: "", github: "", image: "https://via.placeholder.com/600x400" }, ...projects])
+        setProjects([{ id: Date.now().toString(), title: "New Project", description: "Stage your project description here...", tech: ["React"], demo: "", github: "", image: "https://via.placeholder.com/600x400" }, ...projects])
         break;
       case "skills":
         setSkills([...skills, { category: "New Segment", skills: ["New Entry"] }])
@@ -125,7 +125,7 @@ export default function AdminContent({ initialData }: { initialData: PortfolioDa
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black p-6 font-sans relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-950/20 via-transparent to-transparent opacity-50" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(29,78,216,0.2)_0%,transparent_50%,transparent_100%)] opacity-50" />
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] animate-pulse" />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -329,7 +329,7 @@ export default function AdminContent({ initialData }: { initialData: PortfolioDa
                 ))}
               </div>
 
-              <main className="w-full glass-card !p-0 border border-white/5 rounded-[2.5rem] mb-16 overflow-hidden bg-zinc-950/20 shadow-2xl">
+              <main className="w-full glass-card p-0! border border-white/5 rounded-[2.5rem] mb-16 overflow-hidden bg-zinc-950/20 shadow-2xl">
                 <div className="p-8 md:p-12 lg:p-14">
                   {activeTab === "profile" && (
                     <ProfileForm profile={profile} setProfile={setProfile} />
