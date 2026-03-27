@@ -6,7 +6,7 @@
     "tech": ["Next.js", "Node.js", "AWS ECS", "AWS ECR", "AWS S3", "Prisma", "PostgreSQL", "Redis", "Clerk"],
     "github": "https://github.com",
     "demo": "https://demo.com",
-    "image": "/projects/react-launch.png"
+    "previewImage": "/projects/react-launch.png"
   },
   {
     "id": "2",
@@ -15,7 +15,7 @@
     "tech": ["React.js", "TypeScript", "AWS S3", "Context API"],
     "github": "https://github.com",
     "demo": "https://demo.com",
-    "image": "/projects/tixstock.png"
+    "previewImage": "/projects/tixstock.png"
   },
   {
     "id": "3",
@@ -24,6 +24,6 @@
     "tech": ["React.js", "Node.js", "TypeScript", "Sequelize", "MySQL"],
     "github": "https://github.com",
     "demo": "https://demo.com",
-    "image": "/projects/zealoverview.png"
+    "previewImage": "/projects/zealoverview.png"
   }
 ]

@@ -7,6 +7,7 @@ export interface Profile {
   github: string
   linkedin: string
   resume: string
+  profileImage?: string
 }
 
 export interface Project {
@@ -17,6 +18,7 @@ export interface Project {
   github: string
   demo: string
   image?: string
+  previewImage?: string
 }
 
 export interface SkillCategory {

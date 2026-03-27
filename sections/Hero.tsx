@@ -6,8 +6,11 @@ import Link from "next/link"
 import HeroVisual from "@/components/HeroVisual"
 import { Profile } from "@/lib/types"
 import TypingEffect from "@/components/TypingEffect"
+import { getGoogleDriveUrl } from "@/lib/utils"
 
 export default function Hero({ profileData }: { profileData: Profile }) {
+  const resumeUrl = getGoogleDriveUrl(profileData.resume);
+  
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -47,7 +50,7 @@ export default function Hero({ profileData }: { profileData: Profile }) {
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
             <a 
-              href={profileData.resume} 
+              href={resumeUrl} 
               target="_blank"
               rel="noopener noreferrer"
               className="btn-glass-premium"

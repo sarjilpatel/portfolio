@@ -15,11 +15,6 @@ import {
   SidebarGroupContent,
 } from "@/components/ui/sidebar"
 import { 
-  CommandIcon, 
-  Settings2Icon, 
-  CircleHelpIcon, 
-  SearchIcon,
-  User,
   LayoutDashboard
 } from "lucide-react"
 
@@ -30,7 +25,7 @@ export function AppSidebar({
   onLogout = () => {},
   ...props 
 }: { 
-  items?: any[], 
+  items?: { id: string, label: string, icon: any }[], 
   activeTab?: string, 
   onTabChange?: (id: string) => void,
   onLogout?: () => void
@@ -84,29 +79,10 @@ export function AppSidebar({
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarGroup className="mt-auto">
-          <SidebarGroupLabel className="text-white/40 uppercase text-[10px] font-bold tracking-widest px-4 py-2">Support</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {[
-                { title: "Settings", icon: Settings2Icon },
-                { title: "Search", icon: SearchIcon },
-                { title: "Get Help", icon: CircleHelpIcon },
-              ].map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton tooltip={item.title} className="text-zinc-500 hover:text-white">
-                    <item.icon size={16} />
-                    <span className="text-sm font-medium">{item.title}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
       </SidebarContent>
 
       <SidebarFooter className="border-t border-white/5 p-4 bg-black">
-        <NavUser user={user} />
+        <NavUser user={user} onLogout={onLogout} />
       </SidebarFooter>
     </Sidebar>
   )

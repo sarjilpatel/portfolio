@@ -4,8 +4,11 @@ import { motion } from "framer-motion"
 import { Profile, Experience } from "@/lib/types"
 import SectionHeading from "@/components/SectionHeading"
 import { DateTime } from "luxon"
+import Image from "next/image"
+import { getGoogleDriveUrl } from "@/lib/utils"
 
 export default function About({ profileData, experienceData }: { profileData: Profile, experienceData: Experience[] }) {
+  const profileImageUrl = getGoogleDriveUrl(profileData.profileImage || "");
   const parseDate = (dateStr: string) => {
     if (dateStr.toLowerCase().includes("present")) return DateTime.now()
     return DateTime.fromFormat(dateStr.trim(), "MMM yyyy")
@@ -52,9 +55,18 @@ export default function About({ profileData, experienceData }: { profileData: Pr
 
               {/* Main content */}
               <div className="relative w-full h-full flex flex-col items-center justify-center text-8xl font-bold text-white/10 select-none overflow-hidden text-center rounded-3xl border border-white/10 bg-black/30 backdrop-blur-sm">
-                SP
+                {profileImageUrl ? (
+                  <Image 
+                    src={profileImageUrl} 
+                    alt={profileData.name}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  "SP"
+                )}
 
-                <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent">
+                <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent z-10">
                   <p className="text-sm font-mono text-blue-400">
                     sarjil.patel.dev
                   </p>

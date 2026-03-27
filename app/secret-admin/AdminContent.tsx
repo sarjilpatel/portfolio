@@ -23,6 +23,7 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 import { updateData } from "@/lib/actions"
+import { sendOtp, verifyOtp, checkAuth, logout } from "@/lib/auth-actions"
 import { PortfolioData, Profile, Project, SkillCategory, Experience, Certification, Education } from "@/lib/types"
 import { AppSidebar } from "@/components/app-sidebar"
 import {
@@ -54,6 +55,10 @@ import { CertificationsForm } from "@/components/admin/CertificationsForm"
 export default function AdminContent({ initialData }: { initialData: PortfolioData }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [password, setPassword] = useState("")
+  const [otp, setOtp] = useState("")
+  const [authStep, setAuthStep] = useState(0) // 0: Password, 1: OTP
+  const [isLoading, setIsLoading] = useState(false)
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true)
   const [activeTab, setActiveTab] = useState("profile")
   const [currentTime, setCurrentTime] = useState(new Date())
 
@@ -66,16 +71,49 @@ export default function AdminContent({ initialData }: { initialData: PortfolioDa
   const [certifications, setCertifications] = useState<Certification[]>(initialData.certifications)
 
   useEffect(() => {
+    const initAuth = async () => {
+      const isAuth = await checkAuth()
+      setIsAuthenticated(isAuth)
+      setIsCheckingAuth(false)
+    }
+    initAuth()
+    
     const timer = setInterval(() => setCurrentTime(new Date()), 1000)
     return () => clearInterval(timer)
   }, [])
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogout = async () => {
+    await logout()
+    setIsAuthenticated(false)
+    setAuthStep(0)
+    setPassword("")
+    setOtp("")
+    toast.success("Identity Module Terminated")
+  }
+
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (password === "admin123") {
-      setIsAuthenticated(true)
+    setIsLoading(true)
+    const res = await sendOtp(password)
+    setIsLoading(false)
+    if (res.success) {
+      setAuthStep(1)
+      toast.info("Security code sent to your linked device")
     } else {
-      toast.error("Invalid password")
+      toast.error(res.error || "Access Denied")
+    }
+  }
+
+  const handleOtpSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+    const res = await verifyOtp(otp)
+    setIsLoading(false)
+    if (res.success) {
+      setIsAuthenticated(true)
+      toast.success("Security Clearance Granted")
+    } else {
+      toast.error(res.error || "Authentication failed")
     }
   }
 
@@ -122,6 +160,17 @@ export default function AdminContent({ initialData }: { initialData: PortfolioDa
     }
   }
 
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black font-sans">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+          <p className="text-zinc-500 text-xs font-bold uppercase tracking-[0.2em]">Synchronizing Session...</p>
+        </div>
+      </div>
+    )
+  }
+
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black p-6 font-sans relative overflow-hidden">
@@ -138,19 +187,61 @@ export default function AdminContent({ initialData }: { initialData: PortfolioDa
             </div>
           </div>
           <h2 className="text-2xl font-bold text-center mb-2">Portfolio OS</h2>
-          <p className="text-zinc-500 text-center text-sm mb-8">Authentication required for system changes</p>
-          <form onSubmit={handleLogin} className="space-y-4">
-            <input
-              type="password"
-              placeholder="System Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-blue-500/50 transition-all text-center tracking-widest placeholder:tracking-normal placeholder:text-zinc-600"
-            />
-            <button className="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 font-bold transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2">
-              Unlock Terminal
-              <ChevronRight size={18} />
-            </button>
+          <p className="text-zinc-500 text-center text-sm mb-8">
+            {authStep === 0 ? "System password required" : "Identity verification in progress"}
+          </p>
+          
+          <form onSubmit={authStep === 0 ? handlePasswordSubmit : handleOtpSubmit} className="space-y-4">
+            {authStep === 0 ? (
+              <div className="space-y-4">
+                <input
+                  type="password"
+                  placeholder="System Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-blue-500/50 transition-all text-center tracking-widest placeholder:tracking-normal placeholder:text-zinc-600"
+                />
+                <button 
+                  disabled={isLoading}
+                  className="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-500 font-bold transition-all shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2 disabled:opacity-50"
+                >
+                  {isLoading ? "Authenticating..." : "Validate System Access"}
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Enter 6-Digit Code"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value.replace(/[^0-9]/g, '').slice(0, 6))}
+                    className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-blue-500/50 transition-all text-center tracking-[1em] font-black text-xl placeholder:tracking-normal placeholder:text-sm placeholder:font-normal placeholder:text-zinc-600"
+                  />
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-ping" />
+                  </div>
+                </div>
+                <button 
+                  disabled={isLoading}
+                  className="w-full py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 font-bold transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2 disabled:opacity-50"
+                >
+                  {isLoading ? "Verifying..." : "Verify Identity"}
+                  <Sparkles size={18} />
+                </button>
+                <div className="text-center pt-2">
+                  <button 
+                    type="button"
+                    onClick={() => setAuthStep(0)} 
+                    className="text-[10px] text-zinc-500 hover:text-white uppercase font-black flex items-center gap-2 mx-auto"
+                  >
+                    <Undo2 size={12} />
+                    Back to Terminal
+                  </button>
+                </div>
+              </div>
+            )}
           </form>
         </motion.div>
       </div>
@@ -229,7 +320,7 @@ export default function AdminContent({ initialData }: { initialData: PortfolioDa
           items={navItems}
           activeTab={activeTab}
           onTabChange={(id) => setActiveTab(id)}
-          onLogout={() => setIsAuthenticated(false)}
+          onLogout={handleLogout}
         />
         <SidebarInset className="bg-black text-white p-0 relative overflow-hidden flex flex-col min-h-screen">
           {/* Abstract Background Design */}

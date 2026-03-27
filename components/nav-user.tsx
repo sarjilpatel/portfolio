@@ -8,7 +8,6 @@ import {
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -20,7 +19,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { EllipsisVerticalIcon, CircleUserRoundIcon, CreditCardIcon, BellIcon, LogOutIcon } from "lucide-react"
+import { EllipsisVerticalIcon, LogOutIcon } from "lucide-react"
 
 export function NavUser({
   user,
@@ -77,21 +76,6 @@ export function NavUser({
                 </div>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator className="bg-zinc-800" />
-            <DropdownMenuGroup>
-              <DropdownMenuItem className="hover:bg-zinc-800 hover:text-white">
-                <CircleUserRoundIcon className="size-4 mr-2" />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-zinc-800 hover:text-white">
-                <CreditCardIcon className="size-4 mr-2" />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-zinc-800 hover:text-white">
-                <BellIcon className="size-4 mr-2" />
-                Notifications
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
             <DropdownMenuSeparator className="bg-zinc-800" />
             <DropdownMenuItem 
               onClick={onLogout}
