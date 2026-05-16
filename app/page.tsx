@@ -1,15 +1,17 @@
-import { getData } from "@/lib/data"
+import { getAllData } from "@/lib/data"
 import HomeContent from "./HomeContent"
 import { PortfolioData } from "@/lib/types"
 
 export default async function Home() {
+  const allData = await getAllData()
+
   const data: PortfolioData = {
-    profile: await getData("profile"),
-    projects: await getData("projects"),
-    skills: await getData("skills"),
-    experience: await getData("experience"),
-    education: await getData("education"),
-    certifications: await getData("certifications")
+    profile: allData.profile as any,
+    projects: allData.projects as any,
+    skills: allData.skills as any,
+    experience: allData.experience as any,
+    education: allData.education as any,
+    certifications: allData.certifications as any,
   }
 
   return <HomeContent data={data} />

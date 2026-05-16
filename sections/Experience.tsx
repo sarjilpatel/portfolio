@@ -47,9 +47,10 @@ export default function Experience({ experienceData }: { experienceData: Experie
     <section id="experience" className="py-24 px-6 relative overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <div className="mb-24">
-          <SectionHeading 
-            title="Work Experience" 
-            subtitle="My professional journey and industry contribution" 
+          <SectionHeading
+            title="Work Experience"
+            tag="EXPERIENCE"
+            subtitle="My professional journey and industry contribution"
           />
         </div>
         

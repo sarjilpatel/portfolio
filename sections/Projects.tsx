@@ -90,9 +90,10 @@ export default function Projects({ projectsData }: { projectsData: Project[] }) 
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[600px] bg-blue-600/5 blur-[150px] rounded-full -z-10" />
 
       <div className="max-w-7xl mx-auto">
-        <SectionHeading 
-          title="Featured Projects" 
-          subtitle="Recent work and side projects I've built." 
+        <SectionHeading
+          title="Featured Projects"
+          tag="PROJECTS"
+          subtitle="Recent work and side projects I've built."
         />
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 px-4 sm:px-0">

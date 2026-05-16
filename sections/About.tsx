@@ -34,6 +34,7 @@ export default function About({ profileData, experienceData }: { profileData: Pr
       <div className="max-w-7xl mx-auto">
         <SectionHeading
           title="About Me"
+          tag="ABOUT ME"
           subtitle="Passionate developer building modern web solutions"
         />
 

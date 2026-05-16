@@ -11,9 +11,10 @@ export default function Education({ educationData }: { educationData: EducationT
       <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/5 blur-[100px] rounded-full -z-10" />
       
       <div className="max-w-7xl mx-auto">
-        <SectionHeading 
-          title="Education" 
-          subtitle="My academic foundation and qualifications" 
+        <SectionHeading
+          title="Education"
+          tag="EDUCATION"
+          subtitle="My academic foundation and qualifications"
         />
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">

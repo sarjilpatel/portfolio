@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"E:\\\\PROJECTS\\\\portfolio\" -Force)",
+      "Bash(Select-Object Mode, Name)",
+      "Bash(npx tsc *)",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/next/package.json'\\).version\\)\")",
+      "Bash(node -e \"const t = require\\('./node_modules/next/dist/server/web/spec-extension/revalidate-tag'\\); console.log\\(Object.keys\\(t\\)\\)\")"
+    ]
+  }
+}
