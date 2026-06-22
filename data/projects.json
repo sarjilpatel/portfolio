@@ -1,29 +1,35 @@
 [
   {
     "id": "1",
-    "title": "React Launch",
-    "description": "A zero-config React deployment platform inspired by Vercel.",
-    "tech": ["Next.js", "Node.js", "AWS ECS", "AWS ECR", "AWS S3", "Prisma", "PostgreSQL", "Redis", "Clerk"],
-    "github": "https://github.com",
-    "demo": "https://demo.com",
-    "previewImage": "/projects/react-launch.png"
+    "title": "Deploxa",
+    "type": "Personal",
+    "org": "Personal Project",
+    "description": "A Vercel-inspired deployment platform supporting 20+ frameworks across static sites, serverless apps and containerized workloads — with an automated AWS build/deploy pipeline (ECS Fargate, S3, EC2), KMS + AES-256-GCM encrypted env vars, real-time logs over SSE/Redis Pub/Sub, custom domains, instant rollbacks and a firewall.",
+    "tech": ["Next.js", "Node.js", "TypeScript", "Docker", "AWS ECS", "AWS S3", "Redis", "PostgreSQL"],
+    "github": "https://github.com/sarjilpatel",
+    "demo": "",
+    "previewImage": ""
   },
   {
     "id": "2",
-    "title": "TixStock",
-    "description": "A global event ticketing and payment platform supporting partner onboarding, ticket sales and multi-currency payouts.",
-    "tech": ["React.js", "TypeScript", "AWS S3", "Context API"],
-    "github": "https://github.com",
-    "demo": "https://demo.com",
-    "previewImage": "/projects/tixstock.png"
+    "title": "Local Reviews",
+    "type": "Work",
+    "org": "ZealousWeb",
+    "description": "A multi-tenant SaaS platform for review management, customer messaging and business integrations. Migrated the legacy Node.js/MySQL + React app to Next.js, NestJS, Prisma and PostgreSQL, built Stripe subscription workflows (plans, coupons, invoices) and added Redis caching for hot endpoints.",
+    "tech": ["NestJS", "TypeScript", "Prisma", "PostgreSQL", "Redis", "Stripe"],
+    "github": "",
+    "demo": "",
+    "previewImage": ""
   },
   {
     "id": "3",
-    "title": "ZealOverview",
-    "description": "An internal productivity dashboard for managing tasks and team operations.",
-    "tech": ["React.js", "Node.js", "TypeScript", "Sequelize", "MySQL"],
-    "github": "https://github.com",
-    "demo": "https://demo.com",
-    "previewImage": "/projects/zealoverview.png"
+    "title": "Tixstock",
+    "type": "Work",
+    "org": "ZealousWeb",
+    "description": "A B2B ticket distribution platform. Built inventory management and marketplace modules, reusable React components and optimized state with the Context API, integrating REST APIs across seller and buyer workflows.",
+    "tech": ["React.js", "TypeScript", "Redux", "REST APIs"],
+    "github": "",
+    "demo": "",
+    "previewImage": ""
   }
 ]

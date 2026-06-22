@@ -1,9 +1,7 @@
-"use client"
-
-import { motion } from "framer-motion"
 import { SkillCategory } from "@/lib/types"
 import SectionHeading from "@/components/SectionHeading"
-import { Code2, Database, Layout, Settings, Cpu, Smartphone, Globe, Cloud } from "lucide-react"
+import Reveal from "@/components/Reveal"
+import { Code2, Database, Layout, Settings, Cpu, Smartphone, Globe, Cloud, type LucideIcon } from "lucide-react"
 
 type ColorConfig = {
   icon: string
@@ -92,7 +90,7 @@ const categoryConfig: Record<string, ColorConfig> = {
 
 const defaultConfig: ColorConfig = categoryConfig.Languages
 
-const icons: Record<string, any> = {
+const icons: Record<string, LucideIcon> = {
   Languages: Code2,
   Databases: Database,
   Frameworks: Layout,
@@ -119,18 +117,9 @@ export default function Skills({ skillsData }: { skillsData: SkillCategory[] }) 
             const colors = categoryConfig[category.category] || defaultConfig
 
             return (
-              <motion.div
-                key={category.category}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-                style={{ willChange: "transform, opacity" }}
-                whileHover={{
-                  y: -6,
-                  transition: { duration: 0.2 },
-                }}
-                className="glass-card group h-full flex flex-col relative overflow-hidden border-white/5 cursor-default transition-all hover:border-white/15"
+              <Reveal key={category.category} variant="up" delay={index * 60} className="h-full">
+              <div
+                className="glass-card group h-full flex flex-col relative overflow-hidden border-white/5 cursor-default hover:-translate-y-1.5 hover:border-white/15"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
 
@@ -155,7 +144,8 @@ export default function Skills({ skillsData }: { skillsData: SkillCategory[] }) 
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </div>
+              </Reveal>
             )
           })}
         </div>

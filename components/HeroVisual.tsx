@@ -1,14 +1,26 @@
 "use client"
 
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion"
+import { motion, useMotionValue, useSpring, useTransform, useAnimationControls, AnimatePresence } from "framer-motion"
 import { useEffect, useState, useRef } from "react"
-import { Hand, Atom, Cpu, Zap, Cloud, Database, Box, Terminal, Code2, Layers, Figma, Send, Triangle } from "lucide-react"
+import { Atom, Cpu, Zap, Cloud, Database, Box, Terminal, Code2, Layers, Figma, Send, Triangle } from "lucide-react"
 
 
 
 export default function HeroVisual() {
   const [mounted, setMounted] = useState(false)
-  
+  const [showMessage, setShowMessage] = useState(false)
+  const [isSurprised, setIsSurprised] = useState(false)
+  const [isShocked, setIsShocked] = useState(false)
+  const [isExcited, setIsExcited] = useState(false)
+
+  // Imperative controls let every click restart the jump instantly (no waiting
+  // for the previous animation to finish), and a combo counter escalates the
+  // expression when the droid is tapped rapidly.
+  const jumpControls = useAnimationControls()
+  const comboRef = useRef(0)
+  const lastClickRef = useRef(0)
+  const resetTimerRef = useRef<number | undefined>(undefined)
+
   // Mouse tracking values
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
@@ -20,33 +32,35 @@ export default function HeroVisual() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time client mount guard
     setMounted(true)
     const handleMouseMove = (e: MouseEvent) => {
       if (!containerRef.current) return
       const rect = containerRef.current.getBoundingClientRect()
       const centerX = rect.left + rect.width / 2
       const centerY = rect.top + rect.height / 2
-      
+
       // Get position relative to component center
       mouseX.set(e.clientX - centerX)
       mouseY.set(e.clientY - centerY)
     }
     window.addEventListener("mousemove", handleMouseMove)
-    
-    // Global click trigger
+
+    // Global click trigger — a little "O" surprised expression
     const globalClick = (e: MouseEvent) => {
-        // Avoid double trigger if clicking the head
+        // Avoid double trigger if clicking the head (that fires the wave instead)
         if (!(e.target as HTMLElement).closest(".droid-head")) {
-            handleAction(false)
+            setIsShocked(true)
+            window.setTimeout(() => setIsShocked(false), 1500)
         }
     }
     window.addEventListener("click", globalClick)
-    
+
     return () => {
       window.removeEventListener("mousemove", handleMouseMove)
       window.removeEventListener("click", globalClick)
     }
-  }, [mouseX, mouseY]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [mouseX, mouseY])
 
   // Character movement (drifting towards cursor)
   const charX = useTransform(springX, (v) => v * 0.15)
@@ -60,38 +74,45 @@ export default function HeroVisual() {
   const eyeX = useTransform(springX, [-500, 500], [-8, 8])
   const eyeY = useTransform(springY, [-500, 500], [-8, 8])
 
-  // Hand movement
-  const leftHandX = useTransform(springX, [-500, 500], [-30, 10])
-  const leftHandY = useTransform(springY, [-500, 500], [-10, 30])
-  const rightHandX = useTransform(springX, [-500, 500], [-10, 30])
-  const rightHandY = useTransform(springY, [-500, 500], [30, -10])
+  // Direct click on the droid head — jump, wave and say hello.
+  // Each click replays the jump immediately and escalates to an excited face
+  // when tapped rapidly; a single debounced timer resets after the LAST click.
+  const handleAction = () => {
+    const now = Date.now()
+    comboRef.current = now - lastClickRef.current < 600 ? comboRef.current + 1 : 1
+    lastClickRef.current = now
+    const excited = comboRef.current >= 3
 
-  const [showMessage, setShowMessage] = useState(false)
-  const [isWaving, setIsWaving] = useState(false)
-  const [isSurprised, setIsSurprised] = useState(false)
-  const [isShocked, setIsShocked] = useState(false)
+    setShowMessage(true)
+    setIsSurprised(true)
+    setIsExcited(excited)
 
-  const handleAction = (isDirect: boolean) => {
-    if (isDirect) {
-        setShowMessage(true)
-        setIsWaving(true)
-        setIsSurprised(true)
-        setTimeout(() => {
-            setShowMessage(false)
-            setIsWaving(false)
-            setIsSurprised(false)
-        }, 3000)
-    } else {
-        // Just a little "O" expression for global clicks
-        setIsShocked(true)
-        setTimeout(() => setIsShocked(false), 1500)
-    }
+    jumpControls.start({
+      y: [0, excited ? -78 : -55, 0],
+      scale: [1, excited ? 1.55 : 1.32, excited ? 1.2 : 1.12],
+      rotateZ: excited ? [0, 8, -8, 6, -4, 0] : [0, 5, -5, 0],
+      transition: { duration: excited ? 0.5 : 0.42, ease: "backOut" },
+    })
+
+    if (resetTimerRef.current) window.clearTimeout(resetTimerRef.current)
+    resetTimerRef.current = window.setTimeout(() => {
+      setShowMessage(false)
+      setIsSurprised(false)
+      setIsExcited(false)
+      comboRef.current = 0
+      jumpControls.start({ y: 0, scale: 1, rotateZ: 0, transition: { duration: 0.3 } })
+    }, 1400)
   }
+
+  // Clear the pending reset on unmount
+  useEffect(() => () => {
+    if (resetTimerRef.current) window.clearTimeout(resetTimerRef.current)
+  }, [])
 
   if (!mounted) return null
 
   return (
-    <div 
+    <div
         ref={containerRef}
         className="relative w-full h-[600px] flex items-center justify-center perspective-1000 overflow-visible"
     >
@@ -126,9 +147,9 @@ export default function HeroVisual() {
                 { icon: <Send size={18} />, x: -250, y: -100, color: "text-orange-400", z: 30 },
                 { icon: <Triangle size={18} />, x: 100, y: 220, color: "text-indigo-400", z: 15 }
             ].map((tech, i) => (
-              <div 
+              <div
                 key={i}
-                style={{ 
+                style={{
                     left: `calc(50% + ${tech.x}px)`,
                     top: `calc(50% + ${tech.y}px)`,
                     transform: `translate(-50%, -50%) translateZ(${tech.z}px)`
@@ -142,12 +163,8 @@ export default function HeroVisual() {
 
         {/* The Jumping Droid Face (Only this pops up) */}
         <motion.div
-            animate={isWaving ? {
-                y: [0, -60, 0],
-                scale: [1, 1.5, 1.2],
-                rotateZ: [0, 5, -5, 5, 0]
-            } : { scale: 1 }}
-            transition={{ duration: 0.8, ease: "backOut" }}
+            initial={{ scale: 1 }}
+            animate={jumpControls}
             className="relative w-64 h-64 flex flex-col items-center justify-center"
             style={{ transformStyle: "preserve-3d" }}
         >
@@ -161,13 +178,13 @@ export default function HeroVisual() {
                   className="absolute -top-28 left-24 z-50 glass px-10 py-5 rounded-[40px] border-blue-400/30 text-white text-2xl font-black shadow-[0_0_50px_rgba(59,130,246,0.2)] bg-white/10 backdrop-blur-3xl border border-white/30 whitespace-nowrap"
                 >
                   <div className="relative flex items-center gap-4">
-                    <span>HELLO</span>
-                    <img 
-                      src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f44b_1f3fb/512.gif" 
-                      alt="👋" 
-                      width="38" 
-                      height="38" 
-                      className="relative z-50 drop-shadow-[0_0_12px_rgba(255,255,255,0.5)]" 
+                    <span>{isExcited ? "WOOHOO!" : "HELLO"}</span>
+                    <img
+                      src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f44b_1f3fb/512.gif"
+                      alt="👋"
+                      width="38"
+                      height="38"
+                      className="relative z-50 drop-shadow-[0_0_12px_rgba(255,255,255,0.5)]"
                     />
 
                     {/* Centered Thought Bubble Tail (Leads down from box center) */}
@@ -193,48 +210,64 @@ export default function HeroVisual() {
               whileTap={{ scale: 0.95, rotate: 5 }}
               onClick={(e) => {
                   e.stopPropagation()
-                  handleAction(true)
+                  handleAction()
               }}
               className="droid-head relative w-40 h-36 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[40px] shadow-[0_0_40px_rgba(59,130,246,0.2)] flex flex-col items-center justify-center gap-4 overflow-hidden group cursor-pointer active:scale-95 transition-transform"
             >
               {/* Inner Gradient */}
               <div className="absolute inset-0 bg-linear-to-br from-blue-400/10 via-transparent to-purple-400/10" />
-              
+
               {/* Visor Area */}
               <div className="w-28 h-12 bg-black/40 rounded-full flex items-center justify-center gap-8 px-4 relative overflow-hidden">
-                 {/* Pupils / Eyes */}
-                 <motion.div 
+                 {/* Pupils / Eyes — round (idle), wide (shocked), happy arcs (smiling) */}
+                 <motion.div
                     style={{ x: eyeX, y: eyeY }}
-                    className="flex gap-8"
+                    className="flex gap-8 items-center"
                  >
-                    <motion.div 
-                        animate={isShocked ? { scale: 1.8 } : (isSurprised ? { scaleY: 1.5, scaleX: 1.2 } : { scaleY: 1, scaleX: 1 })}
-                        className="w-4 h-4 rounded-full bg-blue-400 shadow-[0_0_15px_rgba(96,165,250,0.8)] relative"
-                    >
-                        <div className="absolute top-0.5 left-0.5 w-1.5 h-1.5 bg-white/80 rounded-full" />
-                    </motion.div>
-                    <motion.div 
-                        animate={isShocked ? { scale: 1.8 } : (isSurprised ? { scaleY: 1.5, scaleX: 1.2 } : { scaleY: 1, scaleX: 1 })}
-                        className="w-4 h-4 rounded-full bg-blue-400 shadow-[0_0_15px_rgba(96,165,250,0.8)] relative"
-                    >
-                        <div className="absolute top-0.5 left-0.5 w-1.5 h-1.5 bg-white/80 rounded-full" />
-                    </motion.div>
+                    {[0, 1].map((i) =>
+                      isSurprised && !isShocked ? (
+                        // happy "∩" curved eye
+                        <div
+                          key={i}
+                          className="w-4 h-2.5 border-t-[3px] border-blue-400 rounded-t-full"
+                          style={{ filter: "drop-shadow(0 0 6px rgba(96,165,250,0.7))" }}
+                        />
+                      ) : (
+                        <motion.div
+                          key={i}
+                          animate={isShocked ? { scale: 1.8 } : { scaleY: 1, scaleX: 1 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                          className="w-4 h-4 rounded-full bg-blue-400 shadow-[0_0_15px_rgba(96,165,250,0.8)] relative"
+                        >
+                          <div className="absolute top-0.5 left-0.5 w-1.5 h-1.5 bg-white/80 rounded-full" />
+                        </motion.div>
+                      )
+                    )}
                  </motion.div>
-    
+
                  {/* Visor Glint */}
                  <div className="absolute inset-0 bg-linear-to-t from-transparent via-blue-400/5 to-transparent pointer-events-none" />
               </div>
 
-              {/* Mouth / Smile / Shock */}
+              {/* Mouth — line (idle) · open "O" (shocked) · smile (happy) · big grin (excited) */}
               <motion.div
-                 animate={isShocked ? { 
+                 animate={isShocked ? {
                     width: 15,
                     height: 15,
                     borderRadius: "50%",
                     backgroundColor: "rgba(96, 165, 250, 0.4)",
                     borderBottom: "0px solid transparent",
                     y: 10
-                 } : (isSurprised ? { 
+                 } : (isExcited ? {
+                    width: 82,
+                    height: 38,
+                    borderRadius: "0 0 44px 44px",
+                    borderBottom: "5px solid #60a5fa",
+                    borderLeft: "2px solid rgba(96, 165, 250, 0.25)",
+                    borderRight: "2px solid rgba(96, 165, 250, 0.25)",
+                    backgroundColor: "rgba(96, 165, 250, 0.18)",
+                    y: 10
+                 } : (isSurprised ? {
                     width: 64,
                     height: 24,
                     borderRadius: "0 0 32px 32px",
@@ -243,14 +276,14 @@ export default function HeroVisual() {
                     borderRight: "2px solid rgba(96, 165, 250, 0.2)",
                     backgroundColor: "rgba(96, 165, 250, 0.1)",
                     y: 10
-                 } : { 
+                 } : {
                     width: 24,
                     height: 4,
                     borderRadius: "999px",
                     borderBottom: "0px solid transparent",
                     backgroundColor: "rgba(96, 165, 250, 0.5)",
                     y: 0
-                 })}
+                 }))}
                  transition={ (isSurprised || isShocked) ? { type: "spring", stiffness: 300, damping: 15 } : { duration: 0.5 }}
                  className="relative shadow-[0_4px_10px_rgba(96,165,250,0.3)]"
               />

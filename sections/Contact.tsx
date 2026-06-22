@@ -1,9 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { motion } from "framer-motion"
 import { Send, Mail, MapPin, Github, Linkedin } from "lucide-react"
 import SectionHeading from "@/components/SectionHeading"
+import Reveal from "@/components/Reveal"
 import { Profile } from "@/lib/types"
 
 export default function Contact({ profileData }: { profileData: Profile }) {
@@ -33,7 +33,7 @@ export default function Contact({ profileData }: { profileData: Profile }) {
     {
       icon: <MapPin size={22} />,
       label: "Location",
-      value: "Gujarat, India",
+      value: profileData.location || "India",
       href: null,
       color: "text-purple-400",
       bg: "bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20",
@@ -69,18 +69,11 @@ export default function Contact({ profileData }: { profileData: Profile }) {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
           {/* Left — contact info */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            style={{ willChange: "transform, opacity" }}
-            className="flex flex-col space-y-6"
-          >
+          <Reveal variant="left" className="flex flex-col space-y-6">
             <div>
-              <h3 className="text-3xl font-bold text-white mb-3">Let's build something</h3>
+              <h3 className="text-3xl font-bold text-white mb-3">Let&apos;s build something</h3>
               <p className="text-slate-400 leading-relaxed">
-                I'm currently open to new opportunities and interesting projects.
+                I&apos;m currently open to new opportunities and interesting projects.
                 Whether you have a question, a proposal, or just want to connect — reach out.
               </p>
             </div>
@@ -115,17 +108,10 @@ export default function Contact({ profileData }: { profileData: Profile }) {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </Reveal>
 
           {/* Right — form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            style={{ willChange: "transform, opacity" }}
-            className="glass-card !p-8"
-          >
+          <Reveal variant="right" delay={100} className="glass-card !p-8">
             <h3 className="text-xl font-bold text-white mb-6">Send a message</h3>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-1.5">
@@ -166,7 +152,7 @@ export default function Contact({ profileData }: { profileData: Profile }) {
                 )}
               </button>
             </form>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>

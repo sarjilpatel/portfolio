@@ -1,8 +1,6 @@
-"use client"
-
-import { motion } from "framer-motion"
 import { Education as EducationType } from "@/lib/types"
 import SectionHeading from "@/components/SectionHeading"
+import Reveal from "@/components/Reveal"
 import { GraduationCap, Calendar } from "lucide-react"
 
 export default function Education({ educationData }: { educationData: EducationType[] }) {
@@ -19,19 +17,9 @@ export default function Education({ educationData }: { educationData: EducationT
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
           {educationData.map((edu, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.05 }}
-              style={{ willChange: "transform, opacity" }}
-              whileHover={{ 
-                y: -5,
-                scale: 1.01,
-                transition: { duration: 0.2 }
-              }}
-              className="glass-card relative group border-white/5 transition-all duration-300 cursor-default overflow-hidden"
+            <Reveal key={idx} variant="up" delay={idx * 60}>
+            <div
+              className="glass-card relative group border-white/5 cursor-default overflow-hidden hover:-translate-y-1.5"
             >
               <div className="flex flex-col h-full relative z-10">
                 <div className="flex items-center justify-between mb-6">
@@ -60,7 +48,8 @@ export default function Education({ educationData }: { educationData: EducationT
               
               {/* Shine Overlay Effect - optimized */}
               <div className="absolute inset-0 bg-linear-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
-            </motion.div>
+            </div>
+            </Reveal>
           ))}
         </div>
       </div>

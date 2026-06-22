@@ -1,8 +1,6 @@
-"use client"
-
-import { motion } from "framer-motion"
 import { Certification } from "@/lib/types"
 import SectionHeading from "@/components/SectionHeading"
+import Reveal from "@/components/Reveal"
 import { Award, ExternalLink, Calendar, CheckCircle2 } from "lucide-react"
 
 export default function Certifications({ certificationsData }: { certificationsData: Certification[] }) {
@@ -19,18 +17,9 @@ export default function Certifications({ certificationsData }: { certificationsD
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {certificationsData.map((cert, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.05 }}
-              style={{ willChange: "transform, opacity" }}
-              whileHover={{ 
-                scale: 1.02,
-                transition: { duration: 0.2 }
-              }}
-              className="glass-card group border-white/5 flex flex-col h-full relative overflow-hidden cursor-default hover:border-blue-500/30 transition-colors"
+            <Reveal key={idx} variant="up" delay={idx * 60} className="h-full">
+            <div
+              className="glass-card group border-white/5 flex flex-col h-full relative overflow-hidden cursor-default hover:-translate-y-1.5 hover:border-blue-500/30"
             >
               {/* Corner Glow Accent */}
               <div className="absolute top-0 right-0 w-16 h-16 bg-blue-500/5 blur-xl group-hover:bg-blue-500/20 transition-all duration-500" />
@@ -72,7 +61,8 @@ export default function Certifications({ certificationsData }: { certificationsD
                   <span>Verified</span>
                 </div>
               </div>
-            </motion.div>
+            </div>
+            </Reveal>
           ))}
         </div>
       </div>

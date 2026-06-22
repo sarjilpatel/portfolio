@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 
-const skills = ["React Native", "Next.js", "AWS Cloud", "Node.js", "TypeScript", "Full Stack"]
+const skills = ["Next.js apps", "Node.js APIs", "NestJS backends", "AWS cloud platforms", "developer tools"]
 
 export default function TypingEffect() {
   const [index, setIndex] = useState(0)
@@ -10,30 +10,32 @@ export default function TypingEffect() {
   const [reverse, setReverse] = useState(false)
   const [blink, setBlink] = useState(true)
 
+  // Single timer that advances the typing state. All transitions (including the
+  // reverse / next-word flips) happen inside the timeout callback so we never
+  // call setState synchronously during the effect body.
   useEffect(() => {
-    if (subIndex === skills[index].length + 1 && !reverse) {
-      setReverse(true)
-      return
-    }
+    const atEnd = subIndex === skills[index].length
+    const atStart = subIndex === 0
 
-    if (subIndex === 0 && reverse) {
-      setReverse(false)
-      setIndex((prev) => (prev + 1) % skills.length)
-      return
-    }
+    const delay = !reverse && atEnd ? 1600 : reverse ? 60 : 110
 
     const timeout = setTimeout(() => {
-      setSubIndex((prev) => prev + (reverse ? -1 : 1))
-    }, Math.max(reverse ? 75 : subIndex === skills[index].length ? 2000 : 150, Math.random() * 200))
+      if (!reverse && atEnd) {
+        setReverse(true)
+      } else if (reverse && atStart) {
+        setReverse(false)
+        setIndex((prev) => (prev + 1) % skills.length)
+      } else {
+        setSubIndex((prev) => prev + (reverse ? -1 : 1))
+      }
+    }, delay)
 
     return () => clearTimeout(timeout)
   }, [subIndex, index, reverse])
 
   useEffect(() => {
-    const timeout2 = setTimeout(() => {
-      setBlink((prev) => !prev)
-    }, 500)
-    return () => clearTimeout(timeout2)
+    const timeout = setTimeout(() => setBlink((prev) => !prev), 500)
+    return () => clearTimeout(timeout)
   }, [blink])
 
   return (

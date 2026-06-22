@@ -1,6 +1,3 @@
-"use client"
-
-import { motion } from "framer-motion"
 import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react"
 import Link from "next/link"
 import HeroVisual from "@/components/HeroVisual"
@@ -10,17 +7,11 @@ import { getGoogleDriveUrl } from "@/lib/utils"
 
 export default function Hero({ profileData }: { profileData: Profile }) {
   const resumeUrl = getGoogleDriveUrl(profileData.resume);
-  
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 px-6 overflow-hidden">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          style={{ willChange: "transform, opacity" }}
-          className="flex flex-col space-y-6"
-        >
+        <div className="hero-in flex flex-col space-y-6">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono w-fit">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
@@ -71,17 +62,11 @@ export default function Hero({ profileData }: { profileData: Profile }) {
             <a href={profileData.linkedin} className="text-slate-500 hover:text-white transition-all transform hover:scale-110"><Linkedin size={24} /></a>
             <a href={`mailto:${profileData.email}`} className="text-slate-500 hover:text-white transition-all transform hover:scale-110"><Mail size={24} /></a>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
-          style={{ willChange: "transform, opacity" }}
-          className="hidden lg:block"
-        >
+        <div className="hero-in hidden lg:block" style={{ "--hero-delay": "100ms" } as React.CSSProperties}>
           <HeroVisual />
-        </motion.div>
+        </div>
       </div>
     </section>
   )

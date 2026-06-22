@@ -1,8 +1,6 @@
-"use client"
-
-import { motion } from "framer-motion"
 import { Experience as ExperienceType } from "@/lib/types"
 import SectionHeading from "@/components/SectionHeading"
+import Reveal from "@/components/Reveal"
 import { Briefcase, ChevronRight, Clock } from "lucide-react"
 import { DateTime } from "luxon"
 
@@ -56,17 +54,12 @@ export default function Experience({ experienceData }: { experienceData: Experie
         
         <div className="relative mt-32">
           {/* Total Experience Header */}
-          <motion.div 
-            initial={{ opacity: 0, y: 10, x: "-50%" }}
-            whileInView={{ opacity: 1, y: 0, x: "-50%" }}
-            viewport={{ once: true }}
-            whileHover={{ scale: 1.05, backgroundColor: "rgba(59, 130, 246, 0.15)", borderColor: "rgba(59, 130, 246, 0.3)" }}
-            style={{ willChange: "transform, opacity" }}
-            className="absolute -top-16 left-4 md:left-1/2 -track-x-1/2 flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono z-20 cursor-default transition-all"
+          <div
+            className="absolute -top-16 left-4 md:left-1/2 md:-translate-x-1/2 flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono z-20 cursor-default transition-all hover:scale-105 hover:bg-blue-500/15 hover:border-blue-500/30"
           >
             <Clock size={14} />
             <span className="tracking-wider">Total Experience: {totalExpStr}</span>
-          </motion.div>
+          </div>
 
           {/* Vertical Timeline Line */}
           <div className="absolute left-4 md:left-1/2 -top-6 bottom-0 w-px bg-linear-to-b from-blue-500/50 via-purple-500/50 to-transparent -translate-x-1/2 hidden sm:block opacity-30" />
@@ -80,12 +73,9 @@ export default function Experience({ experienceData }: { experienceData: Experie
                 </div>
 
                 {/* Left Side (Period) */}
-                <motion.div 
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.05 }}
-                  style={{ willChange: "transform, opacity" }}
+                <Reveal
+                  variant={index % 2 === 0 ? "left" : "right"}
+                  delay={50}
                   className={`flex-1 w-full hidden md:block ${index % 2 === 0 ? "text-right pr-20" : "order-last pl-20"}`}
                 >
                   <div className="flex flex-col gap-1">
@@ -94,15 +84,12 @@ export default function Experience({ experienceData }: { experienceData: Experie
                     </span>
                     <span className="text-xs text-slate-500 font-mono">({exp.durationStr})</span>
                   </div>
-                </motion.div>
+                </Reveal>
 
                 {/* Content Card */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.1 }}
-                  style={{ willChange: "transform, opacity" }}
+                <Reveal
+                  variant="up"
+                  delay={100}
                   className={`flex-1 w-full pl-12 sm:pl-0 md:w-auto ${index % 2 === 0 ? "md:pl-20" : "md:pr-20 md:text-right"}`}
                 >
                   <div className="glass-card p-0! overflow-hidden relative border-white/5 transition-all hover:border-blue-500/40 hover:shadow-[0_0_40px_rgba(59,130,246,0.15)] group-hover:-translate-y-2">
@@ -141,8 +128,8 @@ export default function Experience({ experienceData }: { experienceData: Experie
                       </ul>
                     </div>
                   </div>
-                </motion.div>
-                
+                </Reveal>
+
                 {/* Mobile line */}
                 <div className="sm:hidden absolute left-[15px] top-0 bottom-[-48px] w-px bg-blue-500/10" />
               </div>

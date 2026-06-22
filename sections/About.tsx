@@ -1,36 +1,45 @@
-"use client"
+import { Profile, Experience } from "@/lib/types";
+import SectionHeading from "@/components/SectionHeading";
+import Reveal from "@/components/Reveal";
+import { DateTime } from "luxon";
+import Image from "next/image";
+import { getGoogleDriveUrl } from "@/lib/utils";
 
-import { motion } from "framer-motion"
-import { Profile, Experience } from "@/lib/types"
-import SectionHeading from "@/components/SectionHeading"
-import { DateTime } from "luxon"
-import Image from "next/image"
-import { getGoogleDriveUrl } from "@/lib/utils"
-
-export default function About({ profileData, experienceData }: { profileData: Profile, experienceData: Experience[] }) {
+export default function About({
+  profileData,
+  experienceData,
+}: {
+  profileData: Profile;
+  experienceData: Experience[];
+}) {
   const profileImageUrl = getGoogleDriveUrl(profileData.profileImage || "");
   const parseDate = (dateStr: string) => {
-    if (dateStr.toLowerCase().includes("present")) return DateTime.now()
-    return DateTime.fromFormat(dateStr.trim(), "MMM yyyy")
-  }
+    if (dateStr.toLowerCase().includes("present")) return DateTime.now();
+    return DateTime.fromFormat(dateStr.trim(), "MMM yyyy");
+  };
 
-  let totalMonths = 0
+  let totalMonths = 0;
   experienceData.forEach((exp) => {
-    const [startPart, endPart] = exp.period.split(/[–-]/).map(s => s.trim())
-    const start = parseDate(startPart)
-    const end = parseDate(endPart)
-    totalMonths += end.diff(start, "months").months
-  })
+    const [startPart, endPart] = exp.period.split(/[–-]/).map((s) => s.trim());
+    const start = parseDate(startPart);
+    const end = parseDate(endPart);
+    totalMonths += end.diff(start, "months").months;
+  });
 
-  const totalYears = Math.floor(totalMonths / 12)
-  const remainingMonths = Math.round(totalMonths % 12)
+  const totalYears = Math.floor(totalMonths / 12);
+  const remainingMonths = Math.round(totalMonths % 12);
 
-  let totalExpStr = ""
-  if (totalYears > 0) totalExpStr += `${totalYears} yr${totalYears > 1 ? "s" : ""} `
-  if (remainingMonths > 0) totalExpStr += `${remainingMonths} mo${remainingMonths > 1 ? "s" : ""}`
+  let totalExpStr = "";
+  if (totalYears > 0)
+    totalExpStr += `${totalYears} yr${totalYears > 1 ? "s" : ""} `;
+  if (remainingMonths > 0)
+    totalExpStr += `${remainingMonths} mo${remainingMonths > 1 ? "s" : ""}`;
 
   return (
-    <section id="about" className="py-24 px-6 relative overflow-hidden text-white">
+    <section
+      id="about"
+      className="py-24 px-6 relative overflow-hidden text-white"
+    >
       <div className="max-w-7xl mx-auto">
         <SectionHeading
           title="About Me"
@@ -39,62 +48,62 @@ export default function About({ profileData, experienceData }: { profileData: Pr
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mt-12">
-          {/* LEFT */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="relative"
-          >
-            <div className="aspect-square max-w-md mx-auto relative group">
-              {/* Background gradient (important for blur to work) */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/30 to-purple-500/30 rounded-3xl" />
+          {/* LEFT — circular profile avatar */}
+          <Reveal variant="left" className="relative flex justify-center">
+            <div className="relative w-64 h-64 sm:w-80 sm:h-80 group">
+              {/* Soft ambient glow */}
+              <div className="absolute -inset-5 rounded-full bg-gradient-to-br from-blue-500/30 via-indigo-500/20 to-violet-500/30 blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
 
-              {/* Border effect */}
-              <div className="absolute inset-0 border-2 border-blue-500/30 rounded-3xl translate-x-4 translate-y-4 transition-transform group-hover:translate-x-6 group-hover:translate-y-6" />
+              {/* Rotating dashed accent ring */}
+              <div className="absolute -inset-3 rounded-full border border-dashed border-white/15 animate-[spin_22s_linear_infinite]" />
 
-              {/* Main content */}
-              <div className="relative w-full h-full flex flex-col items-center justify-center text-8xl font-bold text-white/10 select-none overflow-hidden text-center rounded-3xl border border-white/10 bg-black/30 backdrop-blur-sm">
-                {profileImageUrl ? (
-                  <Image 
-                    src={profileImageUrl} 
-                    alt={profileData.name}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                ) : (
-                  "SP"
-                )}
-
-                <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/80 to-transparent z-10">
-                  <p className="text-sm font-mono text-blue-400">
-                    sarjil.patel.dev
-                  </p>
-                  <p className="text-xl font-bold text-white">
-                    {profileData.name}
-                  </p>
+              {/* Gradient ring + photo */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 via-indigo-500 to-violet-500 p-[3px] shadow-[0_0_40px_rgba(99,102,241,0.35)]">
+                <div className="w-full h-full rounded-full bg-black/70 p-1.5">
+                  <div className="relative w-full h-full rounded-full overflow-hidden border border-white/10">
+                    {profileImageUrl ? (
+                      <Image
+                        src={profileImageUrl}
+                        alt={profileData.name}
+                        fill
+                        sizes="(max-width: 640px) 16rem, 20rem"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        priority
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-7xl font-bold text-white/10 select-none">
+                        SP
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Floating glass card (FIXED BLUR) */}
-            <div className="absolute glass-card -right-5 top-10 p-5 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 shadow-xl z-20">
-              <p className="text-2xl font-bold text-blue-400">
-                {totalYears}+
-              </p>
-              <p className="text-xs text-slate-400 uppercase tracking-widest font-mono">
-                Years Experience
-              </p>
+              {/* Availability pill */}
+              <div className="absolute -top-1 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 text-[11px] font-mono text-emerald-400 whitespace-nowrap shadow-lg">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                Available for work
+              </div>
+
+              {/* Floating experience badge */}
+              <div className="absolute -bottom-2 -right-2 sm:right-0 backdrop-blur-lg !p-4 rounded-2xl z-20 text-center">
+                <p className="text-2xl font-bold text-blue-400 leading-none">
+                  {totalYears}+
+                </p>
+                <p className="text-[10px] text-slate-400 uppercase tracking-widest font-mono mt-1">
+                  Years Exp
+                </p>
+              </div>
             </div>
-          </motion.div>
+          </Reveal>
 
           {/* RIGHT */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+          <Reveal
+            variant="right"
+            delay={100}
             className="flex flex-col space-y-6"
           >
             <p className="text-xl text-slate-300 leading-relaxed font-sans">
@@ -103,10 +112,10 @@ export default function About({ profileData, experienceData }: { profileData: Pr
 
             <div className="grid grid-cols-2 gap-8 pt-4">
               {[
-                { label: "Location", value: "Gujarat, India" },
+                { label: "Location", value: profileData.location || "India" },
                 { label: "Role", value: profileData.role },
                 { label: "Availability", value: "Full-time" },
-                { label: "Experience", value: totalExpStr }
+                { label: "Experience", value: totalExpStr },
               ].map((item, i) => (
                 <div key={i} className="flex flex-col">
                   <span className="text-xs text-slate-500 uppercase tracking-widest mb-1">
@@ -118,9 +127,9 @@ export default function About({ profileData, experienceData }: { profileData: Pr
                 </div>
               ))}
             </div>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>
-  )
+  );
 }

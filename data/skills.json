@@ -1,49 +1,22 @@
 [
   {
     "category": "Languages",
-    "skills": [
-      "C",
-      "C++",
-      "JavaScript",
-      "TypeScript",
-      "SQL"
-    ]
+    "skills": ["JavaScript", "TypeScript", "SQL"]
   },
   {
     "category": "Databases",
-    "skills": [
-      "MongoDB",
-      "PostgreSQL",
-      "MySQL",
-      "DynamoDB"
-    ]
+    "skills": ["PostgreSQL", "MySQL", "MongoDB", "DynamoDB", "Redis"]
   },
   {
     "category": "Frameworks",
-    "skills": [
-      "React.js",
-      "Next.js",
-      "Node.js",
-      "Express.js"
-    ]
+    "skills": ["React.js", "Next.js", "Node.js", "Express.js", "NestJS"]
   },
   {
     "category": "Tools",
-    "skills": [
-      "Prisma",
-      "Sequelize",
-      "Docker",
-      "AWS",
-      "Git",
-      "Postman",
-      "Figma"
-    ]
+    "skills": ["Prisma", "Sequelize", "Docker", "Turborepo", "Git", "Postman"]
   },
   {
-    "category": "Test",
-    "skills": [
-      "New Entry",
-      "test"
-    ]
+    "category": "Cloud",
+    "skills": ["AWS EC2", "AWS S3", "AWS Lambda", "AWS ECS", "AWS ECR", "AWS KMS", "API Gateway"]
   }
 ]

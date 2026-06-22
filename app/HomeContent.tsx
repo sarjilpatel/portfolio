@@ -1,6 +1,4 @@
-"use client"
-
-import { motion, useScroll, useSpring } from "framer-motion"
+import ScrollProgress from "@/components/ScrollProgress"
 import Hero from "@/sections/Hero"
 import About from "@/sections/About"
 import Skills from "@/sections/Skills"
@@ -12,21 +10,10 @@ import Contact from "@/sections/Contact"
 import { PortfolioData } from "@/lib/types"
 
 export default function HomeContent({ data }: { data: PortfolioData }) {
-  const { scrollYProgress } = useScroll()
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 200,
-    damping: 40,
-    restDelta: 0.001
-  })
-
   return (
     <main className="relative">
-      {/* Scroll Progress Bar */}
-      <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-blue-500 origin-left z-[60]" 
-        style={{ scaleX }} 
-      />
-      
+      <ScrollProgress />
+
       <div className="flex flex-col">
         <Hero profileData={data.profile} />
         <About profileData={data.profile} experienceData={data.experience} />

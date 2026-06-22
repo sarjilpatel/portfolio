@@ -1,28 +1,17 @@
-"use client"
-
-import { motion } from "framer-motion"
 import { Github, ExternalLink } from "lucide-react"
 import { Project } from "@/lib/types"
 import SectionHeading from "@/components/SectionHeading"
+import Reveal from "@/components/Reveal"
 import { getGoogleDriveUrl } from "@/lib/utils"
 import Image from "next/image"
 
 function ProjectCard({ project, index }: { project: Project, index: number }) {
   const imageUrl = getGoogleDriveUrl(project.previewImage || "");
-  
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.2, delay: index * 0.05 }}
-      whileHover={{ 
-        y: -10,
-        scale: 1.02,
-        transition: { duration: 0.1, ease: "easeOut" }
-      }}
-      style={{ willChange: "transform, opacity" }}
-      className="glass-card flex flex-col group h-full relative overflow-hidden transition-all duration-200 hover:border-blue-500/30"
+    <Reveal variant="up" delay={index * 70} className="h-full">
+    <div
+      className="glass-card flex flex-col group h-full relative overflow-hidden hover:-translate-y-2 hover:border-blue-500/30"
     >
       {/* Vibrant Background Hover */}
       <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 via-transparent to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -42,29 +31,42 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
           <div className="absolute inset-0 bg-linear-to-br from-blue-600/20 to-purple-600/20 opacity-50 group-hover:opacity-100 transition-opacity" />
         )}
         
-        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="flex gap-4">
-             <a 
-              href={project.github} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="p-3 bg-white/10 hover:bg-white/20 rounded-full text-white backdrop-blur-md transition-all duration-200"
-            >
-              <Github size={22} />
-            </a>
-            <a 
-              href={project.demo} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="p-3 bg-blue-600 hover:bg-blue-500 rounded-full text-white backdrop-blur-md transition-all duration-300"
-            >
-              <ExternalLink size={22} />
-            </a>
+        {(project.github || project.demo) && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="flex gap-4">
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.title} source`}
+                  className="p-3 bg-white/10 hover:bg-white/20 rounded-full text-white backdrop-blur-md transition-all duration-200"
+                >
+                  <Github size={22} />
+                </a>
+              )}
+              {project.demo && (
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.title} live demo`}
+                  className="p-3 bg-blue-600 hover:bg-blue-500 rounded-full text-white backdrop-blur-md transition-all duration-300"
+                >
+                  <ExternalLink size={22} />
+                </a>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
       
-      <div className="flex flex-col flex-grow relative z-10 px-4 pb-4">
+      <div className="flex flex-col grow relative z-10 px-4 pb-4">
+        {project.org && (
+          <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-indigo-400/80 mb-1.5">
+            {project.org}
+          </span>
+        )}
         <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-blue-400 transition-colors tracking-tight">
           {project.title}
         </h3>
@@ -80,7 +82,8 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
           ))}
         </div>
       </div>
-    </motion.div>
+    </div>
+    </Reveal>
   )
 }
 

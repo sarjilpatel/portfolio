@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/ThemeProvider"
-import CursorGlow from "@/components/CursorGlow"
 import AnimatedBackground from "@/components/AnimatedBackground"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
@@ -42,7 +41,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AnimatedBackground />
-          {/* <CursorGlow /> */}
           <Navbar />
           {children}
           <Footer />
