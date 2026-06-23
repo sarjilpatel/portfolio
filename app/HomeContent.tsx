@@ -1,14 +1,14 @@
-import ScrollProgress from "@/components/ScrollProgress"
-import ScrollSpine from "@/components/ScrollSpine"
-import Hero from "@/sections/Hero"
-import About from "@/sections/About"
-import Skills from "@/sections/Skills"
-import Projects from "@/sections/Projects"
-import Experience from "@/sections/Experience"
-import Education from "@/sections/Education"
-import Certifications from "@/sections/Certifications"
-import Contact from "@/sections/Contact"
-import { PortfolioData } from "@/lib/types"
+import ScrollProgress from "@/components/ScrollProgress";
+import ScrollSpine from "@/components/ScrollSpine";
+import Hero from "@/sections/Hero";
+import About from "@/sections/About";
+import Skills from "@/sections/Skills";
+import Projects from "@/sections/Projects";
+import Experience from "@/sections/Experience";
+import Education from "@/sections/Education";
+import Certifications from "@/sections/Certifications";
+import Contact from "@/sections/Contact";
+import { PortfolioData } from "@/lib/types";
 
 export default function HomeContent({ data }: { data: PortfolioData }) {
   return (
@@ -16,7 +16,7 @@ export default function HomeContent({ data }: { data: PortfolioData }) {
       <ScrollProgress />
 
       {/* Serpentine spine sits behind the content (z-0); content rides above (z-10) */}
-      <ScrollSpine />
+      {/* <ScrollSpine /> */}
 
       <div className="relative z-10 flex flex-col">
         <Hero profileData={data.profile} />
@@ -29,5 +29,5 @@ export default function HomeContent({ data }: { data: PortfolioData }) {
         <Contact profileData={data.profile} />
       </div>
     </main>
-  )
+  );
 }
