@@ -14,6 +14,7 @@ export interface Profile {
 
 export interface Project {
   id: string
+  slug: string
   title: string
   description: string
   tech: string[]
@@ -23,6 +24,13 @@ export interface Project {
   type?: string
   image?: string
   previewImage?: string
+  // Detail-page fields (all optional — empty ones hide gracefully)
+  year?: string
+  role?: string
+  overview?: string
+  contributions?: string[]
+  highlights?: string[]
+  images?: string[]
 }
 
 export interface SkillCategory {

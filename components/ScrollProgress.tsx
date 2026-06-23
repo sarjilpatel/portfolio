@@ -2,19 +2,21 @@
 
 import { useEffect, useRef } from "react"
 
-// Top scroll-progress bar. A tiny rAF-throttled scroll listener sets a CSS
-// variable (0..1) that CSS turns into a scaleX transform — no framer-motion.
+// Shared scroll signal + top progress bar.
+// A single rAF-throttled scroll listener publishes a CSS variable `--scroll`
+// (0..1) onto :root so ANY element (the progress bar, the serpentine spine,
+// hero parallax, …) can read it in pure CSS — no per-effect listeners.
 export default function ScrollProgress() {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     let raf = 0
+    const root = document.documentElement
     const update = () => {
       raf = 0
-      const doc = document.documentElement
-      const max = doc.scrollHeight - doc.clientHeight
-      const progress = max > 0 ? doc.scrollTop / max : 0
-      ref.current?.style.setProperty("--scroll", String(progress))
+      const max = root.scrollHeight - root.clientHeight
+      const progress = max > 0 ? Math.min(1, Math.max(0, root.scrollTop / max)) : 0
+      root.style.setProperty("--scroll", String(progress))
     }
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update)
@@ -32,7 +34,7 @@ export default function ScrollProgress() {
   return (
     <div
       ref={ref}
-      className="scroll-progress fixed top-0 left-0 right-0 h-1 bg-blue-500 z-[60]"
+      className="scroll-progress fixed top-0 left-0 right-0 h-px bg-white/70 z-60"
     />
   )
 }

@@ -28,3 +28,12 @@ export function getAllData(): PortfolioData {
     certifications: certifications as Certification[],
   }
 }
+
+// Project helpers — same bundled JSON, so detail pages stay fully static.
+export function getAllProjects(): Project[] {
+  return projects as Project[]
+}
+
+export function getProjectBySlug(slug: string): Project | undefined {
+  return (projects as Project[]).find((p) => p.slug === slug)
+}

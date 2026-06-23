@@ -117,7 +117,7 @@ export default function HeroVisual() {
         className="relative w-full h-[600px] flex items-center justify-center perspective-1000 overflow-visible"
     >
       {/* Background ambient glow */}
-      <div className="absolute inset-0 bg-radial from-blue-500/5 via-transparent to-transparent blur-3xl -z-10" />
+      <div className="absolute inset-0 bg-radial from-white/5 via-transparent to-transparent blur-3xl -z-10" />
 
 
       {/* Shared Parallax Container for Both Droid and Icons */}
@@ -134,18 +134,18 @@ export default function HeroVisual() {
         {/* Technology Icons - Move with face parallax but DON'T popup */}
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
             {[
-                { icon: <Atom size={18} />, x: -160, y: -180, color: "text-blue-400", z: 20 },
+                { icon: <Atom size={18} />, x: -160, y: -180, color: "text-zinc-300", z: 20 },
                 { icon: <Zap size={18} />, x: 200, y: -180, color: "text-white", z: 35 },
-                { icon: <Cpu size={18} />, x: -200, y: 150, color: "text-green-400", z: 15 },
-                { icon: <Cloud size={18} />, x: 200, y: 150, color: "text-yellow-400", z: 25 },
-                { icon: <Database size={18} />, x: -260, y: 0, color: "text-blue-500", z: 40 },
-                { icon: <Box size={18} />, x: 260, y: 0, color: "text-blue-400", z: 10 },
-                { icon: <Terminal size={18} />, x: -100, y: 220, color: "text-red-400", z: 45 },
-                { icon: <Code2 size={18} />, x: -220, y: -200, color: "text-blue-600", z: 20 },
-                { icon: <Layers size={18} />, x: -110, y: -240, color: "text-green-500", z: 50 },
-                { icon: <Figma size={18} />, x: 250, y: -100, color: "text-pink-400", z: 5 },
-                { icon: <Send size={18} />, x: -250, y: -100, color: "text-orange-400", z: 30 },
-                { icon: <Triangle size={18} />, x: 100, y: 220, color: "text-indigo-400", z: 15 }
+                { icon: <Cpu size={18} />, x: -200, y: 150, color: "text-zinc-400", z: 15 },
+                { icon: <Cloud size={18} />, x: 200, y: 150, color: "text-zinc-200", z: 25 },
+                { icon: <Database size={18} />, x: -260, y: 0, color: "text-zinc-300", z: 40 },
+                { icon: <Box size={18} />, x: 260, y: 0, color: "text-zinc-400", z: 10 },
+                { icon: <Terminal size={18} />, x: -100, y: 220, color: "text-zinc-200", z: 45 },
+                { icon: <Code2 size={18} />, x: -220, y: -200, color: "text-zinc-500", z: 20 },
+                { icon: <Layers size={18} />, x: -110, y: -240, color: "text-zinc-300", z: 50 },
+                { icon: <Figma size={18} />, x: 250, y: -100, color: "text-zinc-400", z: 5 },
+                { icon: <Send size={18} />, x: -250, y: -100, color: "text-zinc-300", z: 30 },
+                { icon: <Triangle size={18} />, x: 100, y: 220, color: "text-zinc-200", z: 15 }
             ].map((tech, i) => (
               <div
                 key={i}
@@ -175,7 +175,7 @@ export default function HeroVisual() {
                   initial={{ opacity: 0, scale: 0.8, x: -10, y: 30 }}
                   animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
                   exit={{ opacity: 0, scale: 0.8, x: -10, y: 30 }}
-                  className="absolute -top-28 left-24 z-50 glass px-10 py-5 rounded-[40px] border-blue-400/30 text-white text-2xl font-black shadow-[0_0_50px_rgba(59,130,246,0.2)] bg-white/10 backdrop-blur-3xl border border-white/30 whitespace-nowrap"
+                  className="absolute -top-28 left-24 z-50 glass px-10 py-5 rounded-[40px] border-white/30 text-white text-2xl font-black shadow-[0_0_50px_rgba(255,255,255,0.18)] bg-white/10 backdrop-blur-3xl border whitespace-nowrap"
                 >
                   <div className="relative flex items-center gap-4">
                     <span>{isExcited ? "WOOHOO!" : "HELLO"}</span>
@@ -199,7 +199,7 @@ export default function HeroVisual() {
             <motion.div
                 animate={{ rotate: 360, scale: [1, 1.05, 1] }}
                 transition={{ rotate: { duration: 10, repeat: Infinity, ease: "linear" }, scale: { duration: 4, repeat: Infinity } }}
-                className="absolute -inset-10 border border-blue-500/20 rounded-full"
+                className="absolute -inset-10 border border-white/15 rounded-full"
                 style={{ translateZ: -50 }}
             />
 
@@ -212,10 +212,10 @@ export default function HeroVisual() {
                   e.stopPropagation()
                   handleAction()
               }}
-              className="droid-head relative w-40 h-36 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[40px] shadow-[0_0_40px_rgba(59,130,246,0.2)] flex flex-col items-center justify-center gap-4 overflow-hidden group cursor-pointer active:scale-95 transition-transform"
+              className="droid-head relative w-40 h-36 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-[40px] shadow-[0_0_40px_rgba(255,255,255,0.18)] flex flex-col items-center justify-center gap-4 overflow-hidden group cursor-pointer active:scale-95 transition-transform"
             >
               {/* Inner Gradient */}
-              <div className="absolute inset-0 bg-linear-to-br from-blue-400/10 via-transparent to-purple-400/10" />
+              <div className="absolute inset-0 bg-linear-to-br from-white/10 via-transparent to-white/5" />
 
               {/* Visor Area */}
               <div className="w-28 h-12 bg-black/40 rounded-full flex items-center justify-center gap-8 px-4 relative overflow-hidden">
@@ -229,24 +229,24 @@ export default function HeroVisual() {
                         // happy "∩" curved eye
                         <div
                           key={i}
-                          className="w-4 h-2.5 border-t-[3px] border-blue-400 rounded-t-full"
-                          style={{ filter: "drop-shadow(0 0 6px rgba(96,165,250,0.7))" }}
+                          className="w-4 h-2.5 border-t-[3px] border-white rounded-t-full"
+                          style={{ filter: "drop-shadow(0 0 6px rgba(255,255,255,0.7))" }}
                         />
                       ) : (
                         <motion.div
                           key={i}
                           animate={isShocked ? { scale: 1.8 } : { scaleY: 1, scaleX: 1 }}
                           transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                          className="w-4 h-4 rounded-full bg-blue-400 shadow-[0_0_15px_rgba(96,165,250,0.8)] relative"
+                          className="w-4 h-4 rounded-full bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)] relative"
                         >
-                          <div className="absolute top-0.5 left-0.5 w-1.5 h-1.5 bg-white/80 rounded-full" />
+                          <div className="absolute top-0.5 left-0.5 w-1.5 h-1.5 bg-white/90 rounded-full" />
                         </motion.div>
                       )
                     )}
                  </motion.div>
 
                  {/* Visor Glint */}
-                 <div className="absolute inset-0 bg-linear-to-t from-transparent via-blue-400/5 to-transparent pointer-events-none" />
+                 <div className="absolute inset-0 bg-linear-to-t from-transparent via-white/5 to-transparent pointer-events-none" />
               </div>
 
               {/* Mouth — line (idle) · open "O" (shocked) · smile (happy) · big grin (excited) */}
@@ -255,42 +255,42 @@ export default function HeroVisual() {
                     width: 15,
                     height: 15,
                     borderRadius: "50%",
-                    backgroundColor: "rgba(96, 165, 250, 0.4)",
+                    backgroundColor: "rgba(255, 255, 255, 0.4)",
                     borderBottom: "0px solid transparent",
                     y: 10
                  } : (isExcited ? {
                     width: 82,
                     height: 38,
                     borderRadius: "0 0 44px 44px",
-                    borderBottom: "5px solid #60a5fa",
-                    borderLeft: "2px solid rgba(96, 165, 250, 0.25)",
-                    borderRight: "2px solid rgba(96, 165, 250, 0.25)",
-                    backgroundColor: "rgba(96, 165, 250, 0.18)",
+                    borderBottom: "5px solid #fafafa",
+                    borderLeft: "2px solid rgba(255, 255, 255, 0.25)",
+                    borderRight: "2px solid rgba(255, 255, 255, 0.25)",
+                    backgroundColor: "rgba(255, 255, 255, 0.18)",
                     y: 10
                  } : (isSurprised ? {
                     width: 64,
                     height: 24,
                     borderRadius: "0 0 32px 32px",
-                    borderBottom: "4px solid #60a5fa",
-                    borderLeft: "2px solid rgba(96, 165, 250, 0.2)",
-                    borderRight: "2px solid rgba(96, 165, 250, 0.2)",
-                    backgroundColor: "rgba(96, 165, 250, 0.1)",
+                    borderBottom: "4px solid #fafafa",
+                    borderLeft: "2px solid rgba(255, 255, 255, 0.2)",
+                    borderRight: "2px solid rgba(255, 255, 255, 0.2)",
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
                     y: 10
                  } : {
                     width: 24,
                     height: 4,
                     borderRadius: "999px",
                     borderBottom: "0px solid transparent",
-                    backgroundColor: "rgba(96, 165, 250, 0.5)",
+                    backgroundColor: "rgba(255, 255, 255, 0.5)",
                     y: 0
                  }))}
                  transition={ (isSurprised || isShocked) ? { type: "spring", stiffness: 300, damping: 15 } : { duration: 0.5 }}
-                 className="relative shadow-[0_4px_10px_rgba(96,165,250,0.3)]"
+                 className="relative shadow-[0_4px_10px_rgba(255,255,255,0.25)]"
               />
 
               {/* Side Antennas */}
-              <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-8 bg-blue-500/20 border border-blue-500/30 rounded-full blur-[2px]" />
-              <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-8 bg-blue-500/20 border border-blue-500/30 rounded-full blur-[2px]" />
+              <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-8 bg-white/15 border border-white/25 rounded-full blur-[2px]" />
+              <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-8 bg-white/15 border border-white/25 rounded-full blur-[2px]" />
             </motion.div>
 
             {/* Floating Hands */}
@@ -313,7 +313,7 @@ export default function HeroVisual() {
                             animate={{ rotate: [-20, -45, 5, -45, 5, -20] }}
                             transition={{ duration: 0.8, repeat: Infinity, delay: 0.2 }}
                           >
-                            <Hand size={32} className="text-purple-400" />
+                            <Hand size={32} className="text-zinc-200" />
                           </motion.div>
                       </motion.div>
                   </motion.div>

@@ -59,7 +59,7 @@ export default function Navbar() {
           href="/"
           className="text-xl font-bold tracking-tighter hover:opacity-80 transition-opacity text-white"
         >
-          SARJIL<span className="text-blue-500">.</span>DEV
+          SARJIL<span className="text-zinc-500">.</span>DEV
         </Link>
 
         {/* Desktop Nav */}
@@ -72,15 +72,15 @@ export default function Navbar() {
                 href={link.href}
                 className={cn(
                   "text-[11px] font-mono uppercase tracking-[0.2em] transition-colors relative py-1 group",
-                  isActive ? "text-white" : "text-slate-500 hover:text-white",
+                  isActive ? "text-white" : "text-zinc-500 hover:text-white",
                 )}
               >
                 {link.name}
                 <span
                   className={cn(
-                    "absolute -bottom-1 left-0 h-0.5 rounded-full bg-blue-500 transition-all duration-300",
+                    "absolute -bottom-1 left-0 h-0.5 rounded-full bg-white transition-all duration-300",
                     isActive
-                      ? "w-full shadow-[0_0_8px_rgba(59,130,246,0.7)]"
+                      ? "w-full shadow-[0_0_8px_rgba(255,255,255,0.6)]"
                       : "w-0 group-hover:w-full",
                   )}
                 />
@@ -93,7 +93,7 @@ export default function Navbar() {
               href="https://github.com/sarjilpatel"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-500 hover:text-white transition-colors"
+              className="text-zinc-500 hover:text-white transition-colors"
             >
               <Github size={17} />
             </a>
@@ -101,7 +101,7 @@ export default function Navbar() {
               href="https://linkedin.com/in/sarjilpatel"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-500 hover:text-white transition-colors"
+              className="text-zinc-500 hover:text-white transition-colors"
             >
               <Linkedin size={17} />
             </a>
@@ -131,7 +131,7 @@ export default function Navbar() {
                   "text-base font-mono uppercase tracking-wider px-3 py-2 rounded-lg transition-all",
                   activeSection === link.id
                     ? "text-white bg-white/5"
-                    : "text-slate-400 hover:text-white hover:bg-white/5",
+                    : "text-zinc-400 hover:text-white hover:bg-white/5",
                 )}
               >
                 {link.name}

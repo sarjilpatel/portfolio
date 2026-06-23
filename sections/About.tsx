@@ -4,6 +4,7 @@ import Reveal from "@/components/Reveal";
 import { DateTime } from "luxon";
 import Image from "next/image";
 import { getGoogleDriveUrl } from "@/lib/utils";
+import CountUp from "@/components/CountUp";
 
 export default function About({
   profileData,
@@ -52,13 +53,13 @@ export default function About({
           <Reveal variant="left" className="relative flex justify-center">
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 group">
               {/* Soft ambient glow */}
-              <div className="absolute -inset-5 rounded-full bg-gradient-to-br from-blue-500/30 via-indigo-500/20 to-violet-500/30 blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute -inset-5 rounded-full bg-linear-to-br from-white/25 via-zinc-400/15 to-white/20 blur-2xl opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
 
               {/* Rotating dashed accent ring */}
               <div className="absolute -inset-3 rounded-full border border-dashed border-white/15 animate-[spin_22s_linear_infinite]" />
 
               {/* Gradient ring + photo */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 via-indigo-500 to-violet-500 p-[3px] shadow-[0_0_40px_rgba(99,102,241,0.35)]">
+              <div className="absolute inset-0 rounded-full bg-linear-to-br from-white via-zinc-400 to-zinc-700 p-0.75 shadow-[0_0_40px_rgba(255,255,255,0.18)]">
                 <div className="w-full h-full rounded-full bg-black/70 p-1.5">
                   <div className="relative w-full h-full rounded-full overflow-hidden border border-white/10">
                     {profileImageUrl ? (
@@ -89,11 +90,11 @@ export default function About({
               </div>
 
               {/* Floating experience badge */}
-              <div className="absolute -bottom-2 -right-2 sm:right-0 backdrop-blur-lg !p-4 rounded-2xl z-20 text-center">
-                <p className="text-2xl font-bold text-blue-400 leading-none">
-                  {totalYears}+
+              <div className="absolute -bottom-2 -right-2 sm:right-0 backdrop-blur-lg p-4! rounded-2xl z-20 text-center">
+                <p className="text-2xl font-bold text-white leading-none">
+                  <CountUp value={totalYears} suffix="+" />
                 </p>
-                <p className="text-[10px] text-slate-400 uppercase tracking-widest font-mono mt-1">
+                <p className="text-[10px] text-zinc-400 uppercase tracking-widest font-mono mt-1">
                   Years Exp
                 </p>
               </div>
@@ -106,7 +107,7 @@ export default function About({
             delay={100}
             className="flex flex-col space-y-6"
           >
-            <p className="text-xl text-slate-300 leading-relaxed font-sans">
+            <p className="text-xl text-zinc-300 leading-relaxed font-sans">
               {profileData.bio}
             </p>
 
@@ -118,7 +119,7 @@ export default function About({
                 { label: "Experience", value: totalExpStr },
               ].map((item, i) => (
                 <div key={i} className="flex flex-col">
-                  <span className="text-xs text-slate-500 uppercase tracking-widest mb-1">
+                  <span className="text-xs text-zinc-500 uppercase tracking-widest mb-1">
                     {item.label}
                   </span>
                   <span className="text-lg font-medium text-white">

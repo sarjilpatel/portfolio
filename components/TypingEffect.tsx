@@ -39,7 +39,7 @@ export default function TypingEffect() {
   }, [blink])
 
   return (
-    <span className="font-mono text-blue-500">
+    <span className="font-mono text-white">
       {`${skills[index].substring(0, subIndex)}${blink ? "|" : " "}`}
     </span>
   )

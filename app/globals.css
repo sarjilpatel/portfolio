@@ -10,19 +10,25 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --color-primary: #3b82f6;
-  --color-secondary: #6366f1;
-  --color-accent: #a855f7;
+  /* Monochrome system — one swappable accent. Default near-white/platinum so
+     the whole site stays grayscale; change --accent in one place for a pop. */
+  --color-primary: #fafafa;
+  --color-secondary: #d4d4d8;
+  --color-accent: var(--accent);
 
-  --color-muted: #94a3b8;
-  --color-muted-foreground: #64748b;
+  --color-muted: #a1a1aa;
+  --color-muted-foreground: #71717a;
 
   --color-border: rgba(255, 255, 255, 0.1);
-  --color-glass: rgba(17, 25, 40, 0.75);
+  --color-glass: rgba(17, 17, 19, 0.75);
   --color-glass-border: rgba(255, 255, 255, 0.125);
 }
 
 :root {
+  /* Single accent — defaults to platinum (stays monochrome). Swap to any hue. */
+  --accent: #f4f4f5;
+  --accent-rgb: 244, 244, 245;
+
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
@@ -67,12 +73,24 @@
   body {
     background: var(--background);
     color: var(--foreground);
-    @apply antialiased selection:bg-primary/20 selection:text-primary bg-background text-foreground;
+    @apply antialiased selection:bg-white/15 selection:text-white bg-background text-foreground;
     overflow-x: hidden;
   }
   html {
     @apply font-sans;
   }
+}
+
+/* Film-grain texture — a single fixed, static overlay (no animation = GPU-cheap).
+   Adds the tactile, "anti-sterile" feel without any extra requests. */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @utility glass {
@@ -102,9 +120,9 @@
   }
 
   .glass-card:hover {
-    border-color: rgba(129, 140, 248, 0.28);
+    border-color: rgba(255, 255, 255, 0.18);
     background-color: rgba(255, 255, 255, 0.055);
-    box-shadow: 0 18px 44px -12px rgba(0, 0, 0, 0.6), 0 0 28px -8px rgba(99, 102, 241, 0.25);
+    box-shadow: 0 18px 44px -12px rgba(0, 0, 0, 0.6), 0 0 28px -8px rgba(255, 255, 255, 0.12);
   }
 }
 
@@ -140,11 +158,11 @@
 
 @layer components {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-linear-to-r from-blue-400 via-indigo-400 to-violet-500;
+    @apply bg-clip-text text-transparent bg-linear-to-br from-white via-zinc-200 to-zinc-500;
   }
 
   .animated-bg {
-    background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 100%);
+    background: radial-gradient(circle at 50% 50%, #18181b 0%, #09090b 100%);
     position: fixed;
     top: 0;
     left: 0;
@@ -164,31 +182,39 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.2);
+  background: rgba(255, 255, 255, 0.18);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(59, 130, 246, 0.4);
+  background: rgba(255, 255, 255, 0.35);
 }
 
 /* Selection */
 ::selection {
-  background: rgba(59, 130, 246, 0.25);
+  background: rgba(255, 255, 255, 0.2);
   color: #fff;
 }
 
-/* Cursor glow following effect */
+/* Cursor spotlight — driven by PointerFX (sets --mx/--my in px). Desktop only. */
 .cursor-glow {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, rgba(0, 0, 0, 0) 68%);
   border-radius: 50%;
   position: fixed;
+  top: 0;
+  left: 0;
   pointer-events: none;
-  z-index: 10;
-  transition: opacity 0.2s ease;
-  transform: translate(-50%, -50%);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  transform: translate3d(calc(var(--mx, -9999px) - 50%), calc(var(--my, -9999px) - 50%), 0);
+  will-change: transform;
+}
+.cursor-glow.is-active { opacity: 1; }
+@media (hover: none) {
+  .cursor-glow { display: none; }
 }
 
 @keyframes float {
@@ -288,6 +314,67 @@
 /* Scroll progress bar — width driven by a JS-set --scroll var (0..1) */
 .scroll-progress { transform: scaleX(var(--scroll, 0)); transform-origin: left; }
 
+/* ---- 3D serpentine scroll-spine ----
+   A single SVG path that snakes down the page. The stroke "draws" itself via
+   stroke-dashoffset, and a comet head rides the curve via CSS Motion Path.
+   Everything reads the shared :root --scroll var, so there's no extra JS. */
+.spine-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;            /* above background, below content cards */
+  pointer-events: none;
+  overflow: visible;
+  perspective: 1200px;
+}
+.spine-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+/* Faint full-length track — always visible so there's a line through the
+   content; the bright draw + comet sweep down it. */
+.spine-track {
+  stroke: rgba(255, 255, 255, 0.1);
+}
+/* "Drawn so far" segment. Dash length + offset are written inline (real px,
+   from getTotalLength) by the scroll handler. */
+.spine-draw {
+  stroke: url(#spineGrad);
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.4));
+}
+/* Comet — a short bright dash that rides the leading tip (same path, set inline). */
+.spine-comet {
+  stroke: var(--accent);
+  filter: drop-shadow(0 0 6px rgba(var(--accent-rgb), 0.95))
+          drop-shadow(0 0 16px rgba(var(--accent-rgb), 0.55));
+  animation: spine-pulse 1.8s ease-in-out infinite;
+}
+@keyframes spine-pulse {
+  0%, 100% { opacity: 0.78; }
+  50% { opacity: 1; }
+}
+
+/* Magnetic buttons — PointerFX sets --tx/--ty (px) on hover; reset on leave. */
+.magnetic {
+  transform: translate3d(var(--tx, 0px), var(--ty, 0px), 0);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+/* Pointer tilt for cards — PointerFX sets --rx/--ry (deg). */
+.tilt {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.2s ease-out;
+  transform-style: preserve-3d;
+}
+
+/* Extra reveal variant: a clip-path wipe used on headings. */
+@layer utilities {
+  .reveal-clip { clip-path: inset(0 0 100% 0); opacity: 1; transition: clip-path 0.8s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: var(--reveal-delay, 0ms); }
+  .reveal-clip.is-visible { clip-path: inset(0 0 0 0); }
+}
+
 /* Mobile nav menu — smooth auto-height via the grid 0fr→1fr trick.
    Kept in @layer components so Tailwind's `md:hidden` utility still wins
    (and hides it entirely) on desktop. */
@@ -307,6 +394,12 @@
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+  /* The scroll-spine + timeline are scroll-DRIVEN (not autoplaying) and are the
+     site's signature motion, so they keep working here — only their autoplay
+     comet pulse is quieted by the global rule above. Pointer niceties off. */
+  .cursor-glow { display: none !important; }
+  .magnetic { transform: none !important; }
+  .tilt { transform: none !important; }
 }
 
 .dark {

@@ -27,23 +27,23 @@ export default function Contact({ profileData }: { profileData: Profile }) {
       label: "Email",
       value: profileData.email,
       href: `mailto:${profileData.email}`,
-      color: "text-blue-400",
-      bg: "bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20",
+      color: "text-zinc-200",
+      bg: "bg-white/5 hover:bg-white/10 border border-white/10",
     },
     {
       icon: <MapPin size={22} />,
       label: "Location",
       value: profileData.location || "India",
       href: null,
-      color: "text-purple-400",
-      bg: "bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/20",
+      color: "text-zinc-200",
+      bg: "bg-white/5 hover:bg-white/10 border border-white/10",
     },
     {
       icon: <Github size={22} />,
       label: "GitHub",
       value: profileData.github?.replace("https://", "").replace("http://", "") || "github.com",
       href: profileData.github,
-      color: "text-slate-300",
+      color: "text-zinc-200",
       bg: "bg-white/5 hover:bg-white/10 border border-white/10",
     },
     {
@@ -51,14 +51,14 @@ export default function Contact({ profileData }: { profileData: Profile }) {
       label: "LinkedIn",
       value: profileData.linkedin?.replace("https://", "").replace("http://", "") || "linkedin.com/in/sarjil",
       href: profileData.linkedin,
-      color: "text-sky-400",
-      bg: "bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/20",
+      color: "text-zinc-200",
+      bg: "bg-white/5 hover:bg-white/10 border border-white/10",
     },
   ]
 
   return (
     <section id="contact" className="py-24 px-6 relative overflow-hidden">
-      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/5 blur-[120px] rounded-full -z-10" />
+      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/5 blur-[120px] rounded-full -z-10" />
 
       <div className="max-w-7xl mx-auto">
         <SectionHeading
@@ -72,7 +72,7 @@ export default function Contact({ profileData }: { profileData: Profile }) {
           <Reveal variant="left" className="flex flex-col space-y-6">
             <div>
               <h3 className="text-3xl font-bold text-white mb-3">Let&apos;s build something</h3>
-              <p className="text-slate-400 leading-relaxed">
+              <p className="text-zinc-400 leading-relaxed">
                 I&apos;m currently open to new opportunities and interesting projects.
                 Whether you have a question, a proposal, or just want to connect — reach out.
               </p>
@@ -92,7 +92,7 @@ export default function Contact({ profileData }: { profileData: Profile }) {
                         {item.icon}
                       </span>
                       <div className="min-w-0">
-                        <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-0.5">{item.label}</p>
+                        <p className="text-[10px] text-zinc-500 uppercase tracking-[0.2em] mb-0.5">{item.label}</p>
                         <p className="text-sm font-medium text-white truncate">{item.value}</p>
                       </div>
                     </a>
@@ -100,7 +100,7 @@ export default function Contact({ profileData }: { profileData: Profile }) {
                     <div className={`flex items-center gap-4 p-4 rounded-2xl ${item.bg}`}>
                       <span className={`shrink-0 ${item.color}`}>{item.icon}</span>
                       <div className="min-w-0">
-                        <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] mb-0.5">{item.label}</p>
+                        <p className="text-[10px] text-zinc-500 uppercase tracking-[0.2em] mb-0.5">{item.label}</p>
                         <p className="text-sm font-medium text-white truncate">{item.value}</p>
                       </div>
                     </div>
@@ -115,32 +115,33 @@ export default function Contact({ profileData }: { profileData: Profile }) {
             <h3 className="text-xl font-bold text-white mb-6">Send a message</h3>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-1.5">
-                <label className="text-xs font-mono text-slate-400 uppercase tracking-wider">Name</label>
+                <label className="text-xs font-mono text-zinc-400 uppercase tracking-wider">Name</label>
                 <input
                   name="name"
                   type="text"
                   required
                   placeholder="Your name"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 outline-none focus:border-blue-500/50 focus:bg-white/8 transition-all"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-zinc-600 outline-none focus:border-white/40 focus:bg-white/10 transition-all"
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-xs font-mono text-slate-400 uppercase tracking-wider">Message</label>
+                <label className="text-xs font-mono text-zinc-400 uppercase tracking-wider">Message</label>
                 <textarea
                   name="message"
                   rows={5}
                   required
                   placeholder="What's on your mind?"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 outline-none focus:border-blue-500/50 focus:bg-white/8 transition-all resize-none"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-zinc-600 outline-none focus:border-white/40 focus:bg-white/10 transition-all resize-none"
                 />
               </div>
               <button
                 type="submit"
-                className={`w-full py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 ${
+                className={`magnetic w-full py-3.5 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 ${
                   submitted
-                    ? "bg-green-500/20 border border-green-500/40 text-green-400"
-                    : "bg-blue-600 hover:bg-blue-500 text-white hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]"
+                    ? "bg-emerald-500/20 border border-emerald-500/40 text-emerald-300"
+                    : "bg-white text-black hover:bg-zinc-200 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
                 }`}
+                data-magnetic
               >
                 {submitted ? (
                   "Message sent — check your email client!"

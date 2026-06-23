@@ -3,92 +3,18 @@ import SectionHeading from "@/components/SectionHeading"
 import Reveal from "@/components/Reveal"
 import { Code2, Database, Layout, Settings, Cpu, Smartphone, Globe, Cloud, type LucideIcon } from "lucide-react"
 
-type ColorConfig = {
-  icon: string
-  iconHover: string
-  tag: string
-  tagHover: string
-  glow: string
-  gradient: string
-  titleHover: string
+// Monochrome: every category shares one neutral treatment. Categories are told
+// apart by their icon + label, not by colour — which reads as intentional
+// rather than the rainbow "AI" look.
+const mono = {
+  icon: "bg-white/5 text-zinc-300",
+  iconHover: "group-hover:bg-white group-hover:text-black",
+  tag: "bg-white/[0.04] border-white/10 text-zinc-400",
+  tagHover: "hover:bg-white/10 hover:border-white/30 hover:text-white",
+  glow: "shadow-[0_0_15px_rgba(255,255,255,0.08)]",
+  gradient: "from-white/[0.06] via-white/[0.02] to-transparent",
+  titleHover: "group-hover:text-white",
 }
-
-const categoryConfig: Record<string, ColorConfig> = {
-  Languages: {
-    icon: "bg-blue-500/10 text-blue-400",
-    iconHover: "group-hover:bg-blue-500 group-hover:text-white",
-    tag: "bg-blue-500/5 border-blue-500/15 text-blue-400",
-    tagHover: "hover:bg-blue-500/20 hover:border-blue-500/50 hover:text-blue-300",
-    glow: "shadow-[0_0_15px_rgba(59,130,246,0.2)]",
-    gradient: "from-blue-600/10 via-blue-500/5 to-transparent",
-    titleHover: "group-hover:text-blue-400",
-  },
-  Databases: {
-    icon: "bg-emerald-500/10 text-emerald-400",
-    iconHover: "group-hover:bg-emerald-500 group-hover:text-white",
-    tag: "bg-emerald-500/5 border-emerald-500/15 text-emerald-400",
-    tagHover: "hover:bg-emerald-500/20 hover:border-emerald-500/50 hover:text-emerald-300",
-    glow: "shadow-[0_0_15px_rgba(52,211,153,0.2)]",
-    gradient: "from-emerald-600/10 via-emerald-500/5 to-transparent",
-    titleHover: "group-hover:text-emerald-400",
-  },
-  Frameworks: {
-    icon: "bg-violet-500/10 text-violet-400",
-    iconHover: "group-hover:bg-violet-500 group-hover:text-white",
-    tag: "bg-violet-500/5 border-violet-500/15 text-violet-400",
-    tagHover: "hover:bg-violet-500/20 hover:border-violet-500/50 hover:text-violet-300",
-    glow: "shadow-[0_0_15px_rgba(139,92,246,0.2)]",
-    gradient: "from-violet-600/10 via-violet-500/5 to-transparent",
-    titleHover: "group-hover:text-violet-400",
-  },
-  Tools: {
-    icon: "bg-amber-500/10 text-amber-400",
-    iconHover: "group-hover:bg-amber-500 group-hover:text-white",
-    tag: "bg-amber-500/5 border-amber-500/15 text-amber-400",
-    tagHover: "hover:bg-amber-500/20 hover:border-amber-500/50 hover:text-amber-300",
-    glow: "shadow-[0_0_15px_rgba(245,158,11,0.2)]",
-    gradient: "from-amber-600/10 via-amber-500/5 to-transparent",
-    titleHover: "group-hover:text-amber-400",
-  },
-  Cloud: {
-    icon: "bg-sky-500/10 text-sky-400",
-    iconHover: "group-hover:bg-sky-500 group-hover:text-white",
-    tag: "bg-sky-500/5 border-sky-500/15 text-sky-400",
-    tagHover: "hover:bg-sky-500/20 hover:border-sky-500/50 hover:text-sky-300",
-    glow: "shadow-[0_0_15px_rgba(14,165,233,0.2)]",
-    gradient: "from-sky-600/10 via-sky-500/5 to-transparent",
-    titleHover: "group-hover:text-sky-400",
-  },
-  Mobile: {
-    icon: "bg-green-500/10 text-green-400",
-    iconHover: "group-hover:bg-green-500 group-hover:text-white",
-    tag: "bg-green-500/5 border-green-500/15 text-green-400",
-    tagHover: "hover:bg-green-500/20 hover:border-green-500/50 hover:text-green-300",
-    glow: "shadow-[0_0_15px_rgba(34,197,94,0.2)]",
-    gradient: "from-green-600/10 via-green-500/5 to-transparent",
-    titleHover: "group-hover:text-green-400",
-  },
-  Web: {
-    icon: "bg-pink-500/10 text-pink-400",
-    iconHover: "group-hover:bg-pink-500 group-hover:text-white",
-    tag: "bg-pink-500/5 border-pink-500/15 text-pink-400",
-    tagHover: "hover:bg-pink-500/20 hover:border-pink-500/50 hover:text-pink-300",
-    glow: "shadow-[0_0_15px_rgba(236,72,153,0.2)]",
-    gradient: "from-pink-600/10 via-pink-500/5 to-transparent",
-    titleHover: "group-hover:text-pink-400",
-  },
-  Backend: {
-    icon: "bg-orange-500/10 text-orange-400",
-    iconHover: "group-hover:bg-orange-500 group-hover:text-white",
-    tag: "bg-orange-500/5 border-orange-500/15 text-orange-400",
-    tagHover: "hover:bg-orange-500/20 hover:border-orange-500/50 hover:text-orange-300",
-    glow: "shadow-[0_0_15px_rgba(249,115,22,0.2)]",
-    gradient: "from-orange-600/10 via-orange-500/5 to-transparent",
-    titleHover: "group-hover:text-orange-400",
-  },
-}
-
-const defaultConfig: ColorConfig = categoryConfig.Languages
 
 const icons: Record<string, LucideIcon> = {
   Languages: Code2,
@@ -114,14 +40,14 @@ export default function Skills({ skillsData }: { skillsData: SkillCategory[] }) 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {skillsData.map((category, index) => {
             const Icon = icons[category.category] || Code2
-            const colors = categoryConfig[category.category] || defaultConfig
+            const colors = mono
 
             return (
               <Reveal key={category.category} variant="up" delay={index * 60} className="h-full">
               <div
                 className="glass-card group h-full flex flex-col relative overflow-hidden border-white/5 cursor-default hover:-translate-y-1.5 hover:border-white/15"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+                <div className={`absolute inset-0 bg-linear-to-br ${colors.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
 
                 <div className="relative z-10 flex flex-col h-full">
                   <div className="flex items-center space-x-3 mb-5">

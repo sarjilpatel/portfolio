@@ -1,35 +1,116 @@
 [
   {
     "id": "1",
+    "slug": "deploxa",
     "title": "Deploxa",
     "type": "Personal",
     "org": "Personal Project",
+    "year": "2024 – Present",
+    "role": "Solo · Full-Stack & Cloud",
     "description": "A Vercel-inspired deployment platform supporting 20+ frameworks across static sites, serverless apps and containerized workloads — with an automated AWS build/deploy pipeline (ECS Fargate, S3, EC2), KMS + AES-256-GCM encrypted env vars, real-time logs over SSE/Redis Pub/Sub, custom domains, instant rollbacks and a firewall.",
+    "overview": "Deploxa is a self-built deployment platform inspired by Vercel. It takes a Git repository and ships it to the cloud automatically — detecting the framework, building it in an isolated container, and serving it on a custom domain with HTTPS. It supports 20+ frameworks across static sites, serverless functions and long-running containerized apps, all from a single dashboard with real-time build logs.",
+    "contributions": [
+      "Designed and built the entire platform end-to-end — dashboard, API, build pipeline and cloud infrastructure.",
+      "Implemented an automated AWS build/deploy pipeline using ECS Fargate, S3 and EC2 that detects and builds 20+ frameworks.",
+      "Built encrypted environment-variable storage with AWS KMS + AES-256-GCM so secrets are never stored in plaintext.",
+      "Streamed live build & runtime logs to the browser over SSE backed by Redis Pub/Sub.",
+      "Added custom domains, instant rollbacks and a request firewall."
+    ],
+    "highlights": [
+      "20+ frameworks supported (static, serverless, containerized)",
+      "Automated AWS pipeline: ECS Fargate · S3 · EC2",
+      "KMS + AES-256-GCM encrypted secrets",
+      "Real-time logs via SSE + Redis Pub/Sub",
+      "Custom domains, instant rollbacks & firewall"
+    ],
     "tech": ["Next.js", "Node.js", "TypeScript", "Docker", "AWS ECS", "AWS S3", "Redis", "PostgreSQL"],
     "github": "https://github.com/sarjilpatel",
-    "demo": "",
-    "previewImage": ""
+    "demo": "https://deploxa.com",
+    "previewImage": "https://deploxa.com/logo-text-white.png",
+    "images": []
   },
   {
     "id": "2",
+    "slug": "local-reviews",
     "title": "Local Reviews",
     "type": "Work",
     "org": "ZealousWeb",
+    "year": "2023 – 2024",
+    "role": "Full-Stack Developer",
     "description": "A multi-tenant SaaS platform for review management, customer messaging and business integrations. Migrated the legacy Node.js/MySQL + React app to Next.js, NestJS, Prisma and PostgreSQL, built Stripe subscription workflows (plans, coupons, invoices) and added Redis caching for hot endpoints.",
+    "overview": "Local Reviews is a multi-tenant SaaS that helps businesses collect, manage and respond to customer reviews, run messaging campaigns and connect third-party integrations. I worked on modernizing the platform and building out its billing and performance layers.",
+    "contributions": [
+      "Migrated the legacy Node.js/MySQL + React stack to Next.js, NestJS, Prisma and PostgreSQL.",
+      "Built end-to-end Stripe subscription workflows — plans, coupons, proration and invoices.",
+      "Added Redis caching for hot endpoints, cutting response times on high-traffic routes.",
+      "Implemented multi-tenant data isolation and business-integration modules."
+    ],
+    "highlights": [
+      "Legacy → Next.js / NestJS / Prisma migration",
+      "Stripe subscriptions: plans, coupons, invoices",
+      "Redis caching on hot endpoints",
+      "Multi-tenant architecture"
+    ],
     "tech": ["NestJS", "TypeScript", "Prisma", "PostgreSQL", "Redis", "Stripe"],
     "github": "",
-    "demo": "",
-    "previewImage": ""
+    "demo": "https://localreviews.com",
+    "previewImage": "",
+    "images": []
   },
   {
     "id": "3",
+    "slug": "tixstock",
     "title": "Tixstock",
     "type": "Work",
     "org": "ZealousWeb",
+    "year": "2022 – 2023",
+    "role": "Frontend Developer",
     "description": "A B2B ticket distribution platform. Built inventory management and marketplace modules, reusable React components and optimized state with the Context API, integrating REST APIs across seller and buyer workflows.",
+    "overview": "Tixstock is a B2B ticket distribution platform connecting sellers and buyers in a live marketplace. I contributed to the inventory and marketplace experiences and the shared component system that powers them.",
+    "contributions": [
+      "Built inventory management and marketplace modules used across seller and buyer workflows.",
+      "Created a library of reusable React components for consistent UI.",
+      "Optimized application state with the Context API to reduce unnecessary re-renders.",
+      "Integrated REST APIs spanning seller listing and buyer purchase flows."
+    ],
+    "highlights": [
+      "Inventory & marketplace modules",
+      "Reusable React component library",
+      "Context API state optimization",
+      "Seller/buyer REST integrations"
+    ],
     "tech": ["React.js", "TypeScript", "Redux", "REST APIs"],
     "github": "",
+    "demo": "https://tixstock.com",
+    "previewImage": "",
+    "images": []
+  },
+  {
+    "id": "4",
+    "slug": "watchmywallet",
+    "title": "WatchMyWallet",
+    "type": "Personal",
+    "org": "Personal Project",
+    "year": "2023",
+    "role": "Solo · Full-Stack & Mobile",
+    "description": "A cross-platform expense tracking app with real-time sync, recurring transactions, and per-category budgeting. Built the mobile client in React Native/Expo with offline-first storage, a Node/Express + MongoDB backend with Socket.IO for live updates, and a Next.js marketing site.",
+    "overview": "WatchMyWallet is a cross-platform personal-finance app for tracking expenses, automating recurring transactions and budgeting per category — with real-time sync across devices and an offline-first mobile experience.",
+    "contributions": [
+      "Built the mobile client in React Native / Expo with offline-first local storage.",
+      "Developed a Node/Express + MongoDB backend with Socket.IO for live multi-device sync.",
+      "Implemented recurring transactions and per-category budgeting logic.",
+      "Created a Next.js marketing site for the product."
+    ],
+    "highlights": [
+      "Offline-first React Native / Expo client",
+      "Real-time sync via Socket.IO",
+      "Recurring transactions & budgets",
+      "Next.js marketing site"
+    ],
+    "tech": ["React Native", "TypeScript", "Expo", "Node.js", "Express", "MongoDB", "Socket.IO", "Next.js"],
+    "github": "",
     "demo": "",
-    "previewImage": ""
+    "previewImage": "",
+    "images": []
   }
 ]

@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/ThemeProvider"
 import AnimatedBackground from "@/components/AnimatedBackground"
+import PointerFX from "@/components/PointerFX"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import { cn } from "@/lib/utils";
@@ -41,6 +42,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AnimatedBackground />
+          <PointerFX />
           <Navbar />
           {children}
           <Footer />

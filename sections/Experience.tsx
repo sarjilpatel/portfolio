@@ -1,6 +1,7 @@
 import { Experience as ExperienceType } from "@/lib/types"
 import SectionHeading from "@/components/SectionHeading"
 import Reveal from "@/components/Reveal"
+import TimelineLine from "@/components/TimelineLine"
 import { Briefcase, ChevronRight, Clock } from "lucide-react"
 import { DateTime } from "luxon"
 
@@ -55,21 +56,21 @@ export default function Experience({ experienceData }: { experienceData: Experie
         <div className="relative mt-32">
           {/* Total Experience Header */}
           <div
-            className="absolute -top-16 left-4 md:left-1/2 md:-translate-x-1/2 flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono z-20 cursor-default transition-all hover:scale-105 hover:bg-blue-500/15 hover:border-blue-500/30"
+            className="absolute -top-16 left-4 md:left-1/2 md:-translate-x-1/2 flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/15 text-zinc-300 text-xs font-mono z-20 cursor-default transition-all hover:scale-105 hover:bg-white/10 hover:border-white/25"
           >
             <Clock size={14} />
             <span className="tracking-wider">Total Experience: {totalExpStr}</span>
           </div>
 
-          {/* Vertical Timeline Line */}
-          <div className="absolute left-4 md:left-1/2 -top-6 bottom-0 w-px bg-linear-to-b from-blue-500/50 via-purple-500/50 to-transparent -translate-x-1/2 hidden sm:block opacity-30" />
+          {/* Vertical Timeline Line — draws itself downward on enter */}
+          <TimelineLine className="absolute left-4 -ml-px md:left-1/2 -top-6 bottom-0 w-px bg-linear-to-b from-white/45 via-white/20 to-transparent hidden sm:block" />
           
           <div className="space-y-12 md:space-y-24">
             {experiences.map((exp, index) => (
               <div key={exp.id} className="relative flex flex-col md:flex-row items-center group">
                 {/* Timeline Dot */}
                 <div className="absolute left-4 md:left-1/2 w-12 h-12 -translate-x-1/2 flex items-center justify-center z-10 hidden sm:flex">
-                  <div className="w-3 h-3 bg-black border-2 border-blue-500 rounded-full ring-4 ring-blue-500/10 group-hover:scale-150 transition-transform" />
+                  <div className="w-3 h-3 bg-black border-2 border-white rounded-full ring-4 ring-white/10 group-hover:scale-150 transition-transform" />
                 </div>
 
                 {/* Left Side (Period) */}
@@ -79,10 +80,10 @@ export default function Experience({ experienceData }: { experienceData: Experie
                   className={`flex-1 w-full hidden md:block ${index % 2 === 0 ? "text-right pr-20" : "order-last pl-20"}`}
                 >
                   <div className="flex flex-col gap-1">
-                    <span className="text-sm font-mono text-blue-400 font-bold tracking-widest uppercase group-hover:text-blue-300 transition-colors">
+                    <span className="text-sm font-mono text-zinc-200 font-bold tracking-widest uppercase group-hover:text-white transition-colors">
                       {exp.period}
                     </span>
-                    <span className="text-xs text-slate-500 font-mono">({exp.durationStr})</span>
+                    <span className="text-xs text-zinc-500 font-mono">({exp.durationStr})</span>
                   </div>
                 </Reveal>
 
@@ -92,26 +93,26 @@ export default function Experience({ experienceData }: { experienceData: Experie
                   delay={100}
                   className={`flex-1 w-full pl-12 sm:pl-0 md:w-auto ${index % 2 === 0 ? "md:pl-20" : "md:pr-20 md:text-right"}`}
                 >
-                  <div className="glass-card p-0! overflow-hidden relative border-white/5 transition-all hover:border-blue-500/40 hover:shadow-[0_0_40px_rgba(59,130,246,0.15)] group-hover:-translate-y-2">
-                    {/* Vibrant Gradient on Hover */}
-                    <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 via-transparent to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="glass-card p-0! overflow-hidden relative border-white/5 transition-all hover:border-white/25 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)] group-hover:-translate-y-2">
+                    {/* Subtle sheen on hover */}
+                    <div className="absolute inset-0 bg-linear-to-br from-white/6 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     
                     <div className="p-8 relative z-10">
                       <div className="mb-6">
                         <div className="flex items-center gap-3 sm:hidden mb-4">
-                            <span className="text-[10px] font-mono text-blue-400 font-bold border border-blue-500/20 px-2 py-0.5 rounded-full mb-1">
+                            <span className="text-[10px] font-mono text-zinc-300 font-bold border border-white/15 px-2 py-0.5 rounded-full mb-1">
                                 {exp.period} • {exp.durationStr}
                             </span>
                         </div>
                         <div className={`flex items-center gap-3 mb-2 ${index % 2 !== 0 ? "md:justify-end" : ""}`}>
-                          <div className="p-2 bg-blue-500/10 rounded-lg">
-                            <Briefcase size={20} className="text-blue-500" />
+                          <div className="p-2 bg-white/5 rounded-lg">
+                            <Briefcase size={20} className="text-zinc-200" />
                           </div>
-                          <h3 className="text-2xl font-bold text-white tracking-tight group-hover:text-blue-400 transition-colors uppercase">{exp.role}</h3>
+                          <h3 className="text-2xl font-bold text-white tracking-tight group-hover:text-zinc-300 transition-colors uppercase">{exp.role}</h3>
                         </div>
-                        <div className={`flex items-center gap-2 text-slate-400 font-medium ${index % 2 !== 0 ? "md:justify-end" : ""}`}>
-                          <span className="text-blue-500/80">@</span>
-                          <span className="text-lg text-slate-300">{exp.company}</span>
+                        <div className={`flex items-center gap-2 text-zinc-400 font-medium ${index % 2 !== 0 ? "md:justify-end" : ""}`}>
+                          <span className="text-zinc-500">@</span>
+                          <span className="text-lg text-zinc-300">{exp.company}</span>
                         </div>
                       </div>
 
@@ -119,10 +120,10 @@ export default function Experience({ experienceData }: { experienceData: Experie
                         {exp.achievements.map((achievement, i) => (
                           <li 
                             key={i} 
-                            className={`flex items-start text-slate-400 text-sm leading-relaxed ${index % 2 !== 0 ? "md:flex-row-reverse md:text-right" : ""}`}
+                            className={`flex items-start text-zinc-400 text-sm leading-relaxed ${index % 2 !== 0 ? "md:flex-row-reverse md:text-right" : ""}`}
                           >
-                            <ChevronRight size={16} className={`mt-1.5 shrink-0 text-blue-500 ${index % 2 !== 0 ? "md:ml-3 md:rotate-180" : "mr-3"}`} />
-                            <span className="group-hover:text-slate-200 transition-colors">{achievement}</span>
+                            <ChevronRight size={16} className={`mt-1.5 shrink-0 text-zinc-300 ${index % 2 !== 0 ? "md:ml-3 md:rotate-180" : "mr-3"}`} />
+                            <span className="group-hover:text-zinc-200 transition-colors">{achievement}</span>
                           </li>
                         ))}
                       </ul>
@@ -131,7 +132,7 @@ export default function Experience({ experienceData }: { experienceData: Experie
                 </Reveal>
 
                 {/* Mobile line */}
-                <div className="sm:hidden absolute left-[15px] top-0 bottom-[-48px] w-px bg-blue-500/10" />
+                <div className="sm:hidden absolute left-3.75 top-0 -bottom-12 w-px bg-white/10" />
               </div>
             ))}
           </div>
