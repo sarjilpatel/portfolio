@@ -10,7 +10,7 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
   const imageUrl = getGoogleDriveUrl(project.previewImage || "");
 
   return (
-    <Reveal variant="up" delay={index * 70} className="h-full">
+    <Reveal variant="up" delay={index * 70} fade={false} className="h-full">
       {/* Outer relative container holds the tilt + the external links as siblings
           of the card Link (avoids invalid nested anchors). */}
       <div className="relative h-full group">
@@ -102,7 +102,7 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
 
 export default function Projects({ projectsData }: { projectsData: Project[] }) {
   return (
-    <section id="projects" className="py-24 px-6 relative">
+    <section id="projects" className="py-16 sm:py-24 px-5 sm:px-6 relative">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-150 bg-white/3 blur-[150px] rounded-full -z-10" />
 
       <div className="max-w-7xl mx-auto">
@@ -112,7 +112,7 @@ export default function Projects({ projectsData }: { projectsData: Project[] }) 
           subtitle="Recent work and side projects I've built. Click any card for the full case study."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 px-4 sm:px-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-10 sm:mt-12">
           {projectsData.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />
           ))}

@@ -5,7 +5,7 @@ import { Award, ExternalLink, Calendar, CheckCircle2 } from "lucide-react"
 
 export default function Certifications({ certificationsData }: { certificationsData: Certification[] }) {
   return (
-    <section id="certifications" className="py-24 px-6 relative overflow-hidden">
+    <section id="certifications" className="py-16 sm:py-24 px-5 sm:px-6 relative overflow-hidden">
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-white/5 blur-[100px] rounded-full -z-10" />
       
       <div className="max-w-7xl mx-auto">
@@ -17,7 +17,7 @@ export default function Certifications({ certificationsData }: { certificationsD
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {certificationsData.map((cert, idx) => (
-            <Reveal key={idx} variant="up" delay={idx * 60} className="h-full">
+            <Reveal key={idx} variant="up" delay={idx * 60} fade={false} className="h-full">
             <div
               className="glass-card group border-white/5 flex flex-col h-full relative overflow-hidden cursor-default hover:-translate-y-1.5 hover:border-white/25"
             >

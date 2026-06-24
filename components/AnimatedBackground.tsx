@@ -1,24 +1,40 @@
-// Lightweight fixed backdrop: a static base (image + gradient wash), two very
-// slow low-opacity neutral glows animated purely with CSS keyframes, and a
-// static film-grain overlay for a tactile, monochrome feel.
-// No external requests, no framer-motion.
+// Fixed CSS-only backdrop (no image fetch). The key job here is to give the
+// glass cards something worth blurring: a flat dark wash blurs into the same
+// flat color (so the cards read as "just a border"), whereas a faint grid +
+// soft tonal glows get visibly smeared by each card's backdrop-filter — that's
+// what makes the frosted/liquid-glass refraction read. Everything is static or
+// transform/opacity-animated, so it stays GPU-cheap and monochrome.
 export default function AnimatedBackground() {
   return (
     <>
-      <div className="fixed inset-0 -z-20 h-full w-full bg-[#09090b]">
-        {/* Static base image */}
+      <div className="fixed inset-0 -z-20 h-full w-full bg-[#08080a]">
+        {/* Tonal base — a soft top-down gradient instead of a flat fill, so even
+            the smooth areas behind a card pick up a gentle light-to-dark shift. */}
+        <div className="absolute inset-0 bg-[radial-gradient(125%_125%_at_50%_0%,#121216_0%,#0a0a0c_45%,#050506_100%)]" />
+
+        {/* Faint grid — the crisp lines are what the card blur turns into soft
+            bands, making the glass obvious. Masked to fade out toward the edges
+            so it never looks like a spreadsheet. */}
         <div
-          className="absolute inset-0 bg-cover bg-center brightness-[0.45] contrast-[1.1] grayscale"
-          style={{ backgroundImage: 'url("/glass-bg.png")' }}
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)",
+            backgroundSize: "84px 84px",
+            maskImage:
+              "radial-gradient(150% 140% at 50% 20%, #000 45%, transparent 90%)",
+            WebkitMaskImage:
+              "radial-gradient(150% 140% at 50% 20%, #000 45%, transparent 90%)",
+          }}
         />
 
-        {/* Contrast / vignette overlays */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(0,0,0,0)_0%,rgba(0,0,0,0.9)_100%)]" />
-        <div className="absolute inset-0 bg-black/55" />
+        {/* Two slow grayscale glows — tonal variation the cards refract. A touch
+            brighter than before so the blur has visible highs and lows to mix. */}
+        <div className="blob-a absolute top-[-8%] left-[6%] h-[560px] w-[560px] rounded-full bg-white/[0.11] blur-[100px] pointer-events-none" />
+        <div className="blob-b absolute bottom-[6%] right-[6%] h-[640px] w-[640px] rounded-full bg-white/[0.09] blur-[100px] pointer-events-none" />
 
-        {/* Two slow neutral accent glows (monochrome) */}
-        <div className="blob-a absolute top-[-10%] left-[8%] h-[560px] w-[560px] rounded-full bg-white/[0.06] blur-[90px] pointer-events-none" />
-        <div className="blob-b absolute bottom-[8%] right-[8%] h-[640px] w-[640px] rounded-full bg-white/[0.05] blur-[90px] pointer-events-none" />
+        {/* Gentle vignette to keep focus toward the center. */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,transparent_20%,rgba(0,0,0,0.55)_100%)]" />
       </div>
 
       {/* Film grain — single fixed, static overlay above the bg, below content */}

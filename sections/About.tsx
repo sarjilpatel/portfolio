@@ -39,7 +39,7 @@ export default function About({
   return (
     <section
       id="about"
-      className="py-24 px-6 relative overflow-hidden text-white"
+      className="py-16 sm:py-24 px-5 sm:px-6 relative overflow-hidden text-white"
     >
       <div className="max-w-7xl mx-auto">
         <SectionHeading
@@ -48,7 +48,7 @@ export default function About({
           subtitle="Passionate developer building modern web solutions"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mt-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 items-center mt-8 sm:mt-12">
           {/* LEFT — circular profile avatar */}
           <Reveal variant="left" className="relative flex justify-center">
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 group">

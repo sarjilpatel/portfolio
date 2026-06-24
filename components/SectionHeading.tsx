@@ -8,7 +8,7 @@ interface SectionHeadingProps {
 
 export default function SectionHeading({ title, subtitle, tag }: SectionHeadingProps) {
   return (
-    <div className="flex flex-col items-center text-center space-y-4 mb-16">
+    <div className="flex flex-col items-center text-center space-y-4 mb-12 sm:mb-16">
       <Reveal variant="up" className="inline-block">
         <div className="flex items-center justify-center gap-4 mb-5">
           <div className="grow-line h-px bg-gradient-to-r from-transparent to-white/50" />
@@ -18,7 +18,7 @@ export default function SectionHeading({ title, subtitle, tag }: SectionHeadingP
           <div className="grow-line h-px bg-gradient-to-l from-transparent to-white/50" />
         </div>
 
-        <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white leading-[1.05]">
+        <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter text-white leading-[1.05]">
           {title}
         </h2>
 
@@ -26,7 +26,7 @@ export default function SectionHeading({ title, subtitle, tag }: SectionHeadingP
       </Reveal>
 
       {subtitle && (
-        <Reveal variant="up" delay={150} className="text-zinc-400 text-lg max-w-2xl leading-relaxed">
+        <Reveal variant="up" delay={150} className="text-zinc-400 text-base sm:text-lg max-w-2xl px-2 leading-relaxed">
           {subtitle}
         </Reveal>
       )}

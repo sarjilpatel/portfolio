@@ -9,9 +9,9 @@ export default function Hero({ profileData }: { profileData: Profile }) {
   const resumeUrl = getGoogleDriveUrl(profileData.resume);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 px-6 overflow-hidden">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div className="hero-in flex flex-col space-y-7">
+    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-24 sm:pt-20 px-5 sm:px-6 overflow-hidden">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+        <div className="hero-in flex flex-col space-y-5 sm:space-y-7">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-zinc-300 text-xs font-mono w-fit">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -20,16 +20,16 @@ export default function Hero({ profileData }: { profileData: Profile }) {
             <span>Available for New Projects</span>
           </div>
 
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-[-0.04em] leading-[0.92] text-white">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-[-0.04em] leading-[0.92] text-white">
             Hi, I&apos;m <br className="hidden sm:block" />
             <span className="text-gradient">{profileData.name}</span>
           </h1>
 
-          <h2 className="text-2xl md:text-4xl font-medium text-zinc-300 min-h-[1.2em]">
+          <h2 className="text-xl sm:text-2xl md:text-4xl font-medium text-zinc-300 min-h-[1.2em]">
             I build <TypingEffect />
           </h2>
 
-          <p className="max-w-xl text-lg text-zinc-400 leading-relaxed font-sans">
+          <p className="max-w-xl text-base sm:text-lg text-zinc-400 leading-relaxed font-sans">
             {profileData.tagline}
           </p>
 

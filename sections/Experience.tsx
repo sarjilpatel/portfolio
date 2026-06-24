@@ -43,9 +43,9 @@ export default function Experience({ experienceData }: { experienceData: Experie
   if (remainingMonths > 0) totalExpStr += `${remainingMonths} Month${remainingMonths > 1 ? "s" : ""}`
 
   return (
-    <section id="experience" className="py-24 px-6 relative overflow-hidden">
+    <section id="experience" className="py-16 sm:py-24 px-5 sm:px-6 relative overflow-hidden">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-24">
+        <div className="mb-16 sm:mb-24">
           <SectionHeading
             title="Work Experience"
             tag="EXPERIENCE"
@@ -53,7 +53,7 @@ export default function Experience({ experienceData }: { experienceData: Experie
           />
         </div>
         
-        <div className="relative mt-32">
+        <div className="relative mt-20 sm:mt-32">
           {/* Total Experience Header */}
           <div
             className="absolute -top-16 left-4 md:left-1/2 md:-translate-x-1/2 flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/15 text-zinc-300 text-xs font-mono z-20 cursor-default transition-all hover:scale-105 hover:bg-white/10 hover:border-white/25"
@@ -91,13 +91,14 @@ export default function Experience({ experienceData }: { experienceData: Experie
                 <Reveal
                   variant="up"
                   delay={100}
+                  fade={false}
                   className={`flex-1 w-full pl-12 sm:pl-0 md:w-auto ${index % 2 === 0 ? "md:pl-20" : "md:pr-20 md:text-right"}`}
                 >
                   <div className="glass-card p-0! overflow-hidden relative border-white/5 transition-all hover:border-white/25 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)] group-hover:-translate-y-2">
                     {/* Subtle sheen on hover */}
                     <div className="absolute inset-0 bg-linear-to-br from-white/6 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                     
-                    <div className="p-8 relative z-10">
+                    <div className="p-6 sm:p-8 relative z-10">
                       <div className="mb-6">
                         <div className="flex items-center gap-3 sm:hidden mb-4">
                             <span className="text-[10px] font-mono text-zinc-300 font-bold border border-white/15 px-2 py-0.5 rounded-full mb-1">

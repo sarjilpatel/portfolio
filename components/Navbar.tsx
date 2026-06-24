@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import Link from "next/link";
 import { Github, Linkedin, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
+  { name: "Home", href: "/#home", id: "home" },
   { name: "About", href: "/#about", id: "about" },
   { name: "Skills", href: "/#skills", id: "skills" },
   { name: "Projects", href: "/#projects", id: "projects" },
@@ -18,6 +19,9 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const navRowRef = useRef<HTMLDivElement>(null);
+  const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
+  const [underline, setUnderline] = useState({ left: 0, width: 0, visible: false });
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -26,15 +30,31 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    // Entries can arrive out of document order, and fast scrolls can report
+    // several sections intersecting at once — picking the last one in the
+    // loop (instead of the most visible one) is what made the indicator jump
+    // to the wrong link. Track ratios for all observed sections and always
+    // highlight whichever is most visible right now.
+    const ratios = new Map<string, number>();
+
     observerRef.current = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+          ratios.set(entry.target.id, entry.isIntersecting ? entry.intersectionRatio : 0);
+        }
+
+        let topId = "";
+        let topRatio = 0;
+        for (const [id, ratio] of ratios) {
+          if (ratio > topRatio) {
+            topRatio = ratio;
+            topId = id;
           }
         }
+
+        if (topId) setActiveSection(topId);
       },
-      { threshold: 0.35, rootMargin: "-80px 0px -40% 0px" },
+      { threshold: [0, 0.25, 0.5, 0.75, 1], rootMargin: "-80px 0px -40% 0px" },
     );
 
     const sections = navLinks
@@ -44,6 +64,27 @@ export default function Navbar() {
 
     return () => observerRef.current?.disconnect();
   }, []);
+
+  // A single shared bar slides between links (instead of each link owning its
+  // own underline) so jumping from the first to the last nav item glides
+  // across the whole row rather than just fading out/in in place.
+  useLayoutEffect(() => {
+    const measure = () => {
+      const rowEl = navRowRef.current;
+      const activeEl = linkRefs.current.get(activeSection);
+      if (!rowEl || !activeEl) {
+        setUnderline((prev) => ({ ...prev, visible: false }));
+        return;
+      }
+      const rowRect = rowEl.getBoundingClientRect();
+      const linkRect = activeEl.getBoundingClientRect();
+      setUnderline({ left: linkRect.left - rowRect.left, width: linkRect.width, visible: true });
+    };
+
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [activeSection]);
 
   return (
     <nav
@@ -63,30 +104,35 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div ref={navRowRef} className="hidden md:flex items-center space-x-8 relative">
           {navLinks.map((link) => {
             const isActive = activeSection === link.id;
             return (
               <Link
                 key={link.name}
                 href={link.href}
+                ref={(el) => {
+                  if (el) linkRefs.current.set(link.id, el);
+                  else linkRefs.current.delete(link.id);
+                }}
                 className={cn(
                   "text-[11px] font-mono uppercase tracking-[0.2em] transition-colors relative py-1 group",
                   isActive ? "text-white" : "text-zinc-500 hover:text-white",
                 )}
               >
                 {link.name}
-                <span
-                  className={cn(
-                    "absolute -bottom-1 left-0 h-0.5 rounded-full bg-white transition-all duration-300",
-                    isActive
-                      ? "w-full shadow-[0_0_8px_rgba(255,255,255,0.6)]"
-                      : "w-0 group-hover:w-full",
-                  )}
-                />
+                <span className="absolute -bottom-1 left-0 h-0.5 w-0 rounded-full bg-white/40 transition-all duration-300 group-hover:w-full" />
               </Link>
             );
           })}
+
+          <span
+            className={cn(
+              "absolute -bottom-1 h-0.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)] transition-all duration-300 ease-out",
+              underline.visible ? "opacity-100" : "opacity-0",
+            )}
+            style={{ left: underline.left, width: underline.width }}
+          />
 
           <div className="flex items-center space-x-4 border-l border-white/10 pl-8">
             <a

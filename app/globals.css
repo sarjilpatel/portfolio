@@ -106,23 +106,120 @@
 }
 
 @layer components {
-  /* Refined dark glass: a single, cheaper blur tier + a subtle top-light border.
-     Lighter to paint than stacked inset shadows, so it stays smooth while scrolling. */
+  /* ---- Liquid glass ----
+     A layered translucent surface: a tinted gradient body + a backdrop blur with
+     a saturation boost — the saturation is what makes content behind read as
+     *refracted* (the core of the liquid-glass look, vs. a flat frosted panel).
+     A specular ::before pools light in the top-left for a convex curvature, and
+     inset highlights/shadows give thickness. Hover lift comes from transform; the
+     blur is never animated, so cards stay smooth while the page scrolls. */
   .glass-card {
-    @apply rounded-2xl p-6 transition-[border-color,background-color,box-shadow,transform] duration-300;
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    background-color: rgba(255, 255, 255, 0.035);
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    border-top-color: rgba(255, 255, 255, 0.16);
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    @apply rounded-2xl p-5 sm:p-6;
     position: relative;
+    background:
+      linear-gradient(
+        150deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.035) 38%,
+        rgba(255, 255, 255, 0.018) 100%
+      );
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    backdrop-filter: blur(14px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+      0 10px 30px -12px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.28),
+      inset 0 -10px 24px -16px rgba(0, 0, 0, 0.45);
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.3s ease,
+      box-shadow 0.35s ease;
+    /* Promote to its own layer for smooth scrolling. NOTE: do NOT add `contain`
+       here — paint/layout containment suppresses the element's own
+       backdrop-filter in Chromium, which kills the blur entirely. */
+    transform: translate3d(0, 0, 0);
   }
 
-  .glass-card:hover {
-    border-color: rgba(255, 255, 255, 0.18);
-    background-color: rgba(255, 255, 255, 0.055);
-    box-shadow: 0 18px 44px -12px rgba(0, 0, 0, 0.6), 0 0 28px -8px rgba(255, 255, 255, 0.12);
+  /* Specular curvature — light pools in the top-left and fades out, giving the
+     convex "liquid" read. Pure gradient (composited); z:-1 keeps it above the
+     card body but below content, and inside the card under overflow-hidden. */
+  .glass-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+      radial-gradient(135% 90% at 0% 0%, rgba(255, 255, 255, 0.18), transparent 46%),
+      radial-gradient(120% 70% at 100% 0%, rgba(255, 255, 255, 0.06), transparent 55%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* ---- Lightweight glass (for dense grids like Skills) ----
+     Same frosted *look* (translucent gradient body + specular edge) but NO
+     backdrop-filter. Live blur per element is the expensive part, and a grid of
+     30+ skill tiles each blurring the backdrop tanks scroll perf — so these fake
+     the glass with a gradient instead. Bonus: with no backdrop-filter, an
+     opacity fade on an ancestor (the single grid Reveal) can't break them, so
+     they fade in cleanly. */
+  .glass-lite {
+    @apply rounded-xl;
+    position: relative;
+    background:
+      linear-gradient(
+        150deg,
+        rgba(255, 255, 255, 0.11),
+        rgba(255, 255, 255, 0.05) 55%,
+        rgba(255, 255, 255, 0.035) 100%
+      );
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+      0 6px 18px -10px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
+    transition:
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.25s ease,
+      background-color 0.25s ease;
+  }
+  @media (hover: hover) {
+    .glass-lite:hover {
+      background:
+        linear-gradient(
+          150deg,
+          rgba(255, 255, 255, 0.16),
+          rgba(255, 255, 255, 0.07) 55%,
+          rgba(255, 255, 255, 0.045) 100%
+        );
+    }
+  }
+
+  /* Hover is gated to fine-pointer devices so phones never pay for hover paints. */
+  @media (hover: hover) {
+    .glass-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow:
+        0 22px 50px -16px rgba(0, 0, 0, 0.65),
+        0 0 40px -12px rgba(255, 255, 255, 0.14),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.34),
+        inset 0 -10px 24px -16px rgba(0, 0, 0, 0.45);
+    }
+  }
+
+  /* Phones: shrink the blur radius. Backdrop-blur cost scales with radius × the
+     number of on-screen cards, so this is the single biggest mobile scroll win.
+     A slightly more opaque body keeps the frost legible at the smaller radius. */
+  @media (max-width: 640px) {
+    .glass-card {
+      -webkit-backdrop-filter: blur(9px) saturate(150%);
+      backdrop-filter: blur(9px) saturate(150%);
+      background:
+        linear-gradient(
+          150deg,
+          rgba(255, 255, 255, 0.09),
+          rgba(28, 28, 32, 0.32) 60%,
+          rgba(20, 20, 24, 0.4) 100%
+        );
+    }
   }
 }
 
@@ -271,18 +368,27 @@
 
 /* ---- Scroll reveal (CSS transitions + a tiny IntersectionObserver) ---- */
 @layer utilities {
+  /* Snappy, premium-feeling entrance: a short expo-out ease over a small
+     distance reads as "settling into place" rather than a long drift. */
   .reveal {
     opacity: 0;
-    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     transition-delay: var(--reveal-delay, 0ms);
-    will-change: opacity, transform;
   }
-  .reveal-up { transform: translateY(28px); }
-  .reveal-down { transform: translateY(-28px); }
-  .reveal-left { transform: translateX(-28px); }
-  .reveal-right { transform: translateX(28px); }
-  .reveal-scale { transform: scale(0.94); }
+  /* Promote ONLY while still pending so the in-animation starts without a
+     layer-creation hitch, then drop the layer once revealed — no permanent
+     compositor layers piling up. Transform only (opacity is cheap and
+     `will-change: opacity` on a wrapper can isolate a child glass card). */
+  .reveal:not(.is-visible) { will-change: transform; }
+  /* Slide-only reveal: opacity stays 1 so it never isolates the subtree, which
+     would otherwise empty a child glass card's backdrop-filter during the fade. */
+  .reveal.reveal-nofade { opacity: 1; }
+  .reveal-up { transform: translateY(18px); }
+  .reveal-down { transform: translateY(-18px); }
+  .reveal-left { transform: translateX(-22px); }
+  .reveal-right { transform: translateX(22px); }
+  .reveal-scale { transform: scale(0.96); }
   .reveal.is-visible { opacity: 1; transform: none; }
 }
 
@@ -382,6 +488,10 @@
   .nav-menu { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }
   .nav-menu.open { grid-template-rows: 1fr; }
   .nav-menu > .nav-menu-inner { overflow: hidden; }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 /* Respect users who ask for less motion: quiet all animations & transitions. */

@@ -5,7 +5,7 @@ import { GraduationCap, Calendar } from "lucide-react"
 
 export default function Education({ educationData }: { educationData: EducationType[] }) {
   return (
-    <section id="education" className="py-24 px-6 relative overflow-hidden">
+    <section id="education" className="py-16 sm:py-24 px-5 sm:px-6 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 blur-[100px] rounded-full -z-10" />
       
       <div className="max-w-7xl mx-auto">
@@ -17,7 +17,7 @@ export default function Education({ educationData }: { educationData: EducationT
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
           {educationData.map((edu, idx) => (
-            <Reveal key={idx} variant="up" delay={idx * 60}>
+            <Reveal key={idx} variant="up" delay={idx * 60} fade={false}>
             <div
               className="glass-card relative group border-white/5 cursor-default overflow-hidden hover:-translate-y-1.5"
             >

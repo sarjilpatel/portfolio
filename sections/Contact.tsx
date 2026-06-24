@@ -57,7 +57,7 @@ export default function Contact({ profileData }: { profileData: Profile }) {
   ]
 
   return (
-    <section id="contact" className="py-24 px-6 relative overflow-hidden">
+    <section id="contact" className="py-16 sm:py-24 px-5 sm:px-6 relative overflow-hidden">
       <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/5 blur-[120px] rounded-full -z-10" />
 
       <div className="max-w-7xl mx-auto">
@@ -67,7 +67,7 @@ export default function Contact({ profileData }: { profileData: Profile }) {
           subtitle="Have a project in mind or just want to say hello? My inbox is always open."
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 mt-8 sm:mt-12">
           {/* Left — contact info */}
           <Reveal variant="left" className="flex flex-col space-y-6">
             <div>
@@ -111,7 +111,7 @@ export default function Contact({ profileData }: { profileData: Profile }) {
           </Reveal>
 
           {/* Right — form */}
-          <Reveal variant="right" delay={100} className="glass-card !p-8">
+          <Reveal variant="right" delay={100} fade={false} className="glass-card p-6! sm:p-8!">
             <h3 className="text-xl font-bold text-white mb-6">Send a message</h3>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="space-y-1.5">

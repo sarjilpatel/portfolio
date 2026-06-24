@@ -10,12 +10,21 @@ interface RevealProps {
   variant?: Variant
   delay?: number // ms
   /**
-   * Re-animate in/out every time the element enters/leaves the viewport.
-   * Default true: elements slide/fade in on scroll-down and reverse back out
-   * (and vice-versa). Set false to reveal only once.
+   * Re-animate in/out every time the element enters/leaves the viewport
+   * (default true). Keep the count of Reveals low — wrap a whole grid in ONE
+   * Reveal rather than one per item — so re-entry stays cheap.
    */
   repeat?: boolean
   id?: string
+  /**
+   * Fade opacity in/out as part of the reveal (default true). Set false for
+   * anything containing a `backdrop-filter` (glass cards): an ancestor with
+   * opacity < 1 isolates the subtree and empties the backdrop, so the blur
+   * shows as transparent until the fade ends and then "pops" in. With fade off
+   * the element keeps opacity 1 and only slides — the blur stays correct
+   * throughout.
+   */
+  fade?: boolean
 }
 
 // Lightweight scroll-reveal: toggles an `is-visible` class via IntersectionObserver
@@ -27,6 +36,7 @@ export default function Reveal({
   delay = 0,
   repeat = true,
   id,
+  fade = true,
 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
@@ -65,7 +75,7 @@ export default function Reveal({
     <div
       ref={ref}
       id={id}
-      className={`reveal reveal-${variant} ${visible ? "is-visible" : ""} ${className}`}
+      className={`reveal reveal-${variant} ${fade ? "" : "reveal-nofade"} ${visible ? "is-visible" : ""} ${className}`}
       style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
     >
       {children}
