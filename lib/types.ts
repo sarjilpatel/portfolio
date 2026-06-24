@@ -62,6 +62,27 @@ export interface Education {
   period: string
 }
 
+export interface LeetCodeStats {
+  username: string
+  totalSolved: number
+  easy: number
+  medium: number
+  hard: number
+  ranking: number
+}
+
+export interface GfgStats {
+  username: string
+  codingScore: number
+  problemsSolved: number
+  monthlyScore: number
+}
+
+export interface DsaStats {
+  leetcode: LeetCodeStats
+  gfg: GfgStats
+}
+
 export interface PortfolioData {
   profile: Profile
   projects: Project[]

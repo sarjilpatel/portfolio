@@ -1,9 +1,8 @@
-// Fixed CSS-only backdrop (no image fetch). The key job here is to give the
-// glass cards something worth blurring: a flat dark wash blurs into the same
-// flat color (so the cards read as "just a border"), whereas a faint grid +
-// soft tonal glows get visibly smeared by each card's backdrop-filter — that's
-// what makes the frosted/liquid-glass refraction read. Everything is static or
-// transform/opacity-animated, so it stays GPU-cheap and monochrome.
+// Fixed CSS-only backdrop (no image fetch). A faint grid + two soft tonal glows
+// give the near-black page subtle depth and tonal variation that shows faintly
+// through the (now blur-free) translucent glass cards, so they read as panels
+// sitting on a surface rather than floating on flat black. Everything is static
+// or transform/opacity-animated, so it stays GPU-cheap and monochrome.
 export default function AnimatedBackground() {
   return (
     <>
@@ -12,14 +11,15 @@ export default function AnimatedBackground() {
             the smooth areas behind a card pick up a gentle light-to-dark shift. */}
         <div className="absolute inset-0 bg-[radial-gradient(125%_125%_at_50%_0%,#121216_0%,#0a0a0c_45%,#050506_100%)]" />
 
-        {/* Faint grid — the crisp lines are what the card blur turns into soft
-            bands, making the glass obvious. Masked to fade out toward the edges
-            so it never looks like a spreadsheet. */}
+        {/* Faint grid — subtle surface texture behind the cards. Softer than
+            before (0.045) so the crisp lines don't read as seams through the
+            blur-free translucent cards. Masked to fade out toward the edges so it
+            never looks like a spreadsheet. */}
         <div
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)",
+              "linear-gradient(to right, rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.045) 1px, transparent 1px)",
             backgroundSize: "84px 84px",
             maskImage:
               "radial-gradient(150% 140% at 50% 20%, #000 45%, transparent 90%)",

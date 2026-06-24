@@ -3,6 +3,7 @@ import ScrollSpine from "@/components/ScrollSpine";
 import Hero from "@/sections/Hero";
 import About from "@/sections/About";
 import Skills from "@/sections/Skills";
+import CodingStats from "@/sections/CodingStats";
 import Projects from "@/sections/Projects";
 import Experience from "@/sections/Experience";
 import Education from "@/sections/Education";
@@ -22,6 +23,7 @@ export default function HomeContent({ data }: { data: PortfolioData }) {
         <Hero profileData={data.profile} />
         <About profileData={data.profile} experienceData={data.experience} />
         <Skills skillsData={data.skills} />
+        <CodingStats />
         <Projects projectsData={data.projects} />
         <Experience experienceData={data.experience} />
         <Education educationData={data.education} />
