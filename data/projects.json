@@ -26,7 +26,7 @@
     "tech": ["Next.js", "Node.js", "TypeScript", "Docker", "AWS ECS", "AWS S3", "Redis", "PostgreSQL"],
     "github": "https://github.com/sarjilpatel",
     "demo": "https://deploxa.com",
-    "previewImage": "https://deploxa.com/logo-text-white.png",
+    "previewImage": "https://lh3.googleusercontent.com/d/1nBiszLuf7Rd7fwgufMjq8OiuSUWNz1Vd",
     "images": []
   },
   {
@@ -35,7 +35,7 @@
     "title": "Local Reviews",
     "type": "Work",
     "org": "ZealousWeb",
-    "year": "2023 – 2024",
+    "year": "2025 – 2026",
     "role": "Full-Stack Developer",
     "description": "A multi-tenant SaaS platform for review management, customer messaging and business integrations. Migrated the legacy Node.js/MySQL + React app to Next.js, NestJS, Prisma and PostgreSQL, built Stripe subscription workflows (plans, coupons, invoices) and added Redis caching for hot endpoints.",
     "overview": "Local Reviews is a multi-tenant SaaS that helps businesses collect, manage and respond to customer reviews, run messaging campaigns and connect third-party integrations. I worked on modernizing the platform and building out its billing and performance layers.",
@@ -63,18 +63,18 @@
     "title": "Tixstock",
     "type": "Work",
     "org": "ZealousWeb",
-    "year": "2022 – 2023",
+    "year": "2024 – 2025",
     "role": "Frontend Developer",
     "description": "A B2B ticket distribution platform. Built inventory management and marketplace modules, reusable React components and optimized state with the Context API, integrating REST APIs across seller and buyer workflows.",
     "overview": "Tixstock is a B2B ticket distribution platform connecting sellers and buyers in a live marketplace. I contributed to the inventory and marketplace experiences and the shared component system that powers them.",
     "contributions": [
-      "Built inventory management and marketplace modules used across seller and buyer workflows.",
-      "Created a library of reusable React components for consistent UI.",
+      "Worked on inventory management and modules used across seller and buyer workflows.",
+      "Created and worked on multiple reusable React components for consistent UI.",
       "Optimized application state with the Context API to reduce unnecessary re-renders.",
       "Integrated REST APIs spanning seller listing and buyer purchase flows."
     ],
     "highlights": [
-      "Inventory & marketplace modules",
+      "Inventory & ticketing modules",
       "Reusable React component library",
       "Context API state optimization",
       "Seller/buyer REST integrations"
